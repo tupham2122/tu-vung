@@ -153,7 +153,7 @@
   .flash-back-group{display:inline-block;background:var(--gold-light);color:#7D6608;border:1px solid #F9E79F;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:8px}
   .flash-tap-hint{font-size:11px;color:var(--muted);text-align:center;margin-bottom:10px}
   .flash-actions{display:flex;gap:12px;margin-top:24px;position:fixed;bottom:60px;left:0;right:0;padding:0 16px;z-index:100}
-  .flash-btn{flex:1;padding:13px 8px;border-radius:16px;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:transform .1s,opacity .1s;box-shadow:0 2px 10px rgba(0,0,0,0.15);display:flex;flex-direction:column;align-items:center;gap:4px}
+  .flash-btn{flex:1;padding:18px 8px;border-radius:16px;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:transform .1s,opacity .1s;box-shadow:0 2px 10px rgba(0,0,0,0.15);display:flex;flex-direction:column;align-items:center;gap:4px}
   .flash-btn:active{transform:scale(.95)}
   .flash-btn .btn-icon{font-size:28px;line-height:1}
   .flash-btn .btn-label{font-size:13px;font-weight:700}
@@ -1182,7 +1182,7 @@ function answerMC(btn){
   updateQuizStats();
   const fb=document.getElementById('mcFeedback');
   fb.className='mc-feedback '+(isOk?'ok':'fail');
-  fb.innerHTML=isOk?'✅ Chính xác!':'❌ Sai rồi — đáp án đúng đã được đánh dấu xanh';
+  fb.innerHTML=isOk?'✅ Chính xác!':'❌ Sai rồi huhu !';
   fb.insertAdjacentHTML('afterend',`<button class="mc-next-btn" onclick="nextMC()">Câu tiếp theo →</button>`);
 }
 
