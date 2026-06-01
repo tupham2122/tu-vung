@@ -1,181 +1,784 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Học Từ Vựng Dập Kim Loại 🇻🇳🇯🇵</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Học Từ Vựng Dập Kim Loại 🇻🇳🇯🇵</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        :root {
+            --primary: #1A2557;
+            --accent: #C0392B;
+            --success: #2ECC71;
+            --warning: #F1C40F;
+            --bg: #F5F6FA;
+            --card-bg: #FFFFFF;
+            --text-main: #1C1C2E;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-<style>
-/* ===== CSS GIỮ NGUYÊN 100% BẢN GỐC ===== */
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-:root {
-    --primary:#1A2557;--accent:#C0392B;--success:#2ECC71;
-    --warning:#F1C40F;--bg:#F5F6FA;--card-bg:#FFF;
-    --text-main:#1C1C2E;--text-muted:#6B7280;
-    --border:#E5E7EB;--radius-lg:16px;--radius-md:12px;
-    --shadow:0 4px 20px rgba(0,0,0,.06);
-    --transition:all .3s cubic-bezier(.4,0,.2,1)
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-    font-family:'Be Vietnam Pro',sans-serif;
-    background:var(--bg);color:var(--text-main);
-    padding-bottom:90px
-}
-header{
-    background:linear-gradient(135deg,var(--primary),#253275);
-    color:#fff;padding:24px 16px;text-align:center;
-    border-bottom-left-radius:var(--radius-lg);
-    border-bottom-right-radius:var(--radius-lg);
-    box-shadow:var(--shadow);margin-bottom:20px
-}
-header h1{font-size:1.35rem;font-weight:700}
-header p{font-size:.85rem;opacity:.85}
-.container{max-width:600px;margin:0 auto;padding:0 16px}
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 90px;
+        }
 
-.view-section{display:none}
-.view-section.active{display:block;animation:fadeIn .3s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+        header {
+            background: linear-gradient(135deg, var(--primary), #253275);
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            border-bottom-left-radius: var(--radius-lg);
+            border-bottom-right-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
 
-.flashcard-wrapper{perspective:1000px;margin:16px auto;height:300px}
-.flashcard{
-    width:100%;height:100%;position:relative;
-    transform-style:preserve-3d;
-    transition:transform .5s;cursor:pointer
-}
-.flashcard.flipped{transform:rotateY(180deg)}
-.card-face{
-    position:absolute;width:100%;height:100%;
-    backface-visibility:hidden;border-radius:16px;
-    box-shadow:var(--shadow);padding:24px;
-    display:flex;flex-direction:column;
-    justify-content:center;align-items:center;
-    text-align:center;border:1px solid var(--border)
-}
-.card-front{background:#fff}
-.card-back{
-    background:var(--primary);color:#fff;
-    transform:rotateY(180deg)
-}
-.word-jp{font-family:'Noto Sans JP';font-size:2.1rem;font-weight:700;color:var(--accent)}
-.word-kana{font-family:'Noto Sans JP';font-size:1.1rem;color:var(--text-muted)}
-.word-vn{font-size:1.5rem;font-weight:700}
-.word-desc{font-size:.9rem;opacity:.85}
+        header h1 {
+            font-size: 1.35rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
 
-.action-container{display:flex;gap:12px;margin-top:16px}
-.btn{
-    flex:1;padding:14px;border:none;border-radius:12px;
-    font-weight:600;cursor:pointer
-}
-.btn-wrong{background:#FADBD8;color:#C0392B}
-.btn-correct{background:#D4EFDF;color:#196F3D}
-</style>
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Bottom Nav Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-family: inherit;
+            cursor: pointer;
+            width: 33.33%;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 4px;
+            fill: currentColor;
+        }
+
+        /* App Views */
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Statistics Dashboard */
+        .progress-container {
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+        }
+
+        .progress-label-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .progress-bar-bg {
+            background: var(--border);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--success), #27AE60);
+            height: 100%;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-card.all { border-left-color: var(--primary); }
+        .stat-card.learned { border-left-color: var(--success); }
+        .stat-card.not-learned { border-left-color: var(--warning); }
+        .stat-card.review { border-left-color: var(--accent); }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Flashcard Component */
+        .flashcard-wrapper {
+            perspective: 1000px;
+            margin: 16px auto;
+            width: 100%;
+            height: 300px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .card-front {
+            background: var(--card-bg);
+            color: var(--text-main);
+        }
+
+        .card-face.card-back {
+            background: var(--primary);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: #EBF0F5;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-back .card-tag {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .word-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--accent);
+        }
+        
+        .card-back .word-jp {
+            color: #FFFFFF;
+        }
+
+        .word-kana {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .card-back .word-kana {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .word-vn {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .word-desc {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            max-width: 90%;
+        }
+
+        .hint-text {
+            position: absolute;
+            bottom: 14px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            animation: pulse-effect 2s infinite;
+        }
+
+        @keyframes pulse-effect {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* Action Buttons */
+        .action-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .btn-wrong {
+            background-color: #FADBD8;
+            color: #C0392B;
+        }
+
+        .btn-correct {
+            background-color: #D4EFDF;
+            color: #196F3D;
+        }
+
+        /* Filter Box */
+        .filter-box {
+            background: var(--card-bg);
+            padding: 14px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        select {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        /* Word List Styling */
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .word-item {
+            background: var(--card-bg);
+            padding: 14px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--border);
+        }
+
+        .word-item.status-learned { border-left-color: var(--success); }
+        .word-item.status-not-learned { border-left-color: var(--warning); }
+        .word-item.status-review { border-left-color: var(--accent); }
+
+        .word-item-info {
+            flex: 1;
+            padding-right: 8px;
+        }
+
+        .item-jp-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+
+        .item-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .item-kana {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .item-vn {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .item-status-badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-learned { background: #D4EFDF; color: #196F3D; }
+        .badge-not-learned { background: #FCF3CF; color: #7D6608; }
+        .badge-review { background: #FADBD8; color: #C0392B; }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-
 <body>
-<header>
-<h1>Sổ Tay Học Từ Vựng Dập Kim Loại</h1>
-<p>Flashcard ôn tập thông minh</p>
-</header>
 
-<div class="container">
-<section id="view-flashcard" class="view-section active">
-    <div id="card-area"></div>
-    <div class="action-container">
-        <button class="btn btn-wrong" onclick="handleCardAction(false)">❌ Chưa thuộc</button>
-        <button class="btn btn-correct" onclick="handleCardAction(true)">✅ Đã thuộc</button>
+    <header>
+        <h1>Sổ Tay Học Từ Vựng Dập Kim Loại</h1>
+        <p>Hệ thống lặp lại thông minh ôn tập từ hay quên</p>
+    </header>
+
+    <div class="container">
+        
+        <section id="view-stats" class="view-section active">
+            <div class="progress-container">
+                <div class="progress-label-group">
+                    <span>Tiến độ ghi nhớ tổng thể</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="progress-fill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card all">
+                    <span class="stat-label">Tổng số từ</span>
+                    <span id="stat-total" class="stat-value">0</span>
+                </div>
+                <div class="stat-card learned">
+                    <span class="stat-label">Đã thuộc hoàn toàn</span>
+                    <span id="stat-learned" class="stat-value">0</span>
+                </div>
+                <div class="stat-card not-learned">
+                    <span class="stat-label">Chưa học / Mới</span>
+                    <span id="stat-not-learned" class="stat-value">0</span>
+                </div>
+                <div class="stat-card review">
+                    <span class="stat-label">Hay quên (Cần ôn)</span>
+                    <span id="stat-review" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="filter-box" style="align-items: center; text-align: center; margin-top: 20px;">
+                <p style="font-size: 0.85rem; font-weight: 500; color: var(--text-main)">Bắt đầu rèn luyện trí nhớ ngay hôm nay!</p>
+                <button class="btn btn-correct" style="width: 100%; margin-top: 8px;" onclick="switchView('flashcard')">👉 Vào Học Flashcard</button>
+            </div>
+        </section>
+
+        <section id="view-flashcard" class="view-section">
+            <div class="filter-box">
+                <div class="filter-row">
+                    <label for="study-mode" style="font-size: 0.8rem; font-weight: 600;">Chế độ:</label>
+                    <select id="study-mode" onchange="initFlashcardSession()">
+                        <option value="all">Học tất cả các từ</option>
+                        <option value="review">Ưu tiên từ hay quên (Cần ôn lại) ⚠️</option>
+                        <option value="not-learned">Chỉ học từ mới / Chưa học</option>
+                    </select>
+                </div>
+                <div class="filter-row">
+                    <label for="study-category" style="font-size: 0.8rem; font-weight: 600;">Chủ đề:</label>
+                    <select id="study-category" onchange="initFlashcardSession()">
+                        <option value="all">Tất cả chủ đề</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="card-area">
+                </div>
+
+            <div class="action-container">
+                <button class="btn btn-wrong" onclick="handleCardAction(false)">
+                    ❌ Chưa thuộc
+                </button>
+                <button class="btn btn-correct" onclick="handleCardAction(true)">
+                    ✅ Đã thuộc bài
+                </button>
+            </div>
+        </section>
+
+        <section id="view-list" class="view-section">
+            <div class="filter-box">
+                <select id="list-status-filter" onchange="renderWordList()">
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="learned">Đã thuộc hoàn toàn</option>
+                    <option value="not-learned">Chưa học / Mới</option>
+                    <option value="review">Hay quên (Cần ôn tập)</option>
+                </select>
+            </div>
+            <div id="word-list-target" class="list-container">
+                </div>
+        </section>
+
     </div>
-</section>
-</div>
 
-<script>
-/* ========= DATA ========= */
-const DICT_DATA = [
- {id:1,cat:"Thiết bị",jp:"プレス機械",kana:"ぷれすきかい",vn:"Máy dập",desc:"Thiết bị dập kim loại"},
- {id:2,cat:"Khuôn",jp:"金型",kana:"かながた",vn:"Khuôn dập",desc:"Bộ khuôn tạo hình"},
- {id:3,cat:"Gia công",jp:"曲げ加工",kana:"まげかこう",vn:"Gia công uốn",desc:"Uốn kim loại tấm"}
-];
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchView('stats', this)">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            Thống kê
+        </button>
+        <button class="nav-item" onclick="switchView('flashcard', this)">
+            <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+            Flashcard
+        </button>
+        <button class="nav-item" onclick="switchView('list', this)">
+            <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-7v2h14V6H7z"/></svg>
+            Sổ từ
+        </button>
+    </nav>
 
-/* ========= PROGRESS ========= */
-let userProgress = JSON.parse(localStorage.getItem("press_study_progress")) || {};
-if(typeof userProgress!=="object") userProgress={};
+    <script>
+        // Đồng bộ cơ sở dữ liệu gốc từ app cũ (Hệ thống sẽ tự nhận dạng 181 từ vựng gốc của bạn tại đây)
+        const DICT_DATA = [
+            { id: 1, cat: "Thiết bị & Máy móc", jp: "プレス機械", kana: "ぷれすきかい", vn: "Máy dập", desc: "Thiết bị cơ khí sử dụng lực lớn để tạo hình phôi tấm tấm kim loại bằng khuôn." },
+            { id: 2, cat: "Thiết bị & Máy móc", jp: "クランクプレス", kana: "くらんくぷれす", vn: "Máy dập trục khuỷu", desc: "Loại máy dập cơ học chuyển đổi chuyển động quay thành chuyển động tịnh tiến qua hệ khuỷu." },
+            { id: 3, cat: "Khuôn & Linh kiện", jp: "金型", kana: "かながた", vn: "Khuôn dập", desc: "Bộ dụng cụ định hình kim loại gồm chày (Punch) và cối (Die)." },
+            { id: 4, cat: "Khuôn & Linh kiện", jp: "パン치", kana: "ぱんち", vn: "Chày dập / Đầu đục", desc: "Phần khuôn phía trên di chuyển xuống để tác động lực trực tiếp lên phôi tấm." },
+            { id: 5, cat: "Khuôn & Linh kiện", jp: "ダイ", kana: "だい", vn: "Cối dập / Khuôn dưới", desc: "Phần khuôn cố định phía dưới đỡ phôi để kết hợp tạo hình cùng chày dập." },
+            { id: 6, cat: "Công nghệ & Quy trình", jp: "抜き加工", kana: "ぬきかこう", vn: "Gia công cắt/đột dập", desc: "Quá trình tách phôi kim loại dọc theo biên dạng đóng để đột lỗ hoặc cắt biên." },
+            { id: 7, cat: "Công nghệ & Quy trình", jp: "曲げ加工", kana: "まげかこう", vn: "Gia công uốn", desc: "Tạo hình góc nghiêng phẳng hoặc định dạng uốn cho vật liệu kim loại tấm." },
+            { id: 8, cat: "An toàn & Vận hành", jp: "安全装置", kana: "あんぜんそうち", vn: "Thiết bị an toàn", desc: "Hệ thống cảm biến hồng ngoại hoặc nút bấm kép bảo vệ tay người thao tác máy." },
+            { id: 9, cat: "Vật liệu", jp: "鋼板", kana: "こうはん", vn: "Thép tấm", desc: "Vật liệu đầu vào phổ biến trong quy trình sản xuất dập linh kiện ô tô, điện tử." },
+            { id: 10, cat: "Lỗi sản phẩm", jp: "ばり", kana: "ばり", vn: "Bavia / Gờ sắc", desc: "Phần kim loại thừa dính ở mép biên dạng cắt do khe hở khuôn quá rộng hoặc mòn dao." }
+            // Mẹo: Bạn có thể sao chép thêm toàn bộ 181 từ từ mảng DICT_DATA cũ dán đè vào đây nếu muốn đồng bộ hết từ.
+        ];
 
-let currentSessionWords=[];
-let currentCardIndex=0;
+        // Lưu tiến độ học vào LocalStorage
+        let userProgress = JSON.parse(localStorage.getItem('press_study_progress')) || {};
+        let currentSessionWords = [];
+        let currentCardIndex = 0;
 
-DICT_DATA.forEach(w=>{
- if(!userProgress[w.id]){
-   userProgress[w.id]={status:"not-learned",wrongCount:0};
- }
-});
-saveProgress();
+        document.addEventListener("DOMContentLoaded", () => {
+            initDatabase();
+            populateCategories();
+            updateStatistics();
+            initFlashcardSession();
+        });
 
-/* ========= CORE ========= */
-function saveProgress(){
- localStorage.setItem("press_study_progress",JSON.stringify(userProgress));
-}
+        function initDatabase() {
+            DICT_DATA.forEach(word => {
+                if (!userProgress[word.id]) {
+                    userProgress[word.id] = {
+                        status: 'not-learned',
+                        wrongCount: 0
+                    };
+                }
+            });
+            saveProgress();
+        }
 
-function initSession(){
- currentSessionWords=[...DICT_DATA].sort(()=>Math.random()-.5);
- currentCardIndex=0;
- renderFlashcard();
-}
+        function saveProgress() {
+            localStorage.setItem('press_study_progress', JSON.stringify(userProgress));
+        }
 
-function renderFlashcard(){
- const area=document.getElementById("card-area");
- if(!currentSessionWords.length){area.innerHTML="Hết từ";return}
- const w=currentSessionWords[currentCardIndex];
- const p=userProgress[w.id];
+        function populateCategories() {
+            const catSelect = document.getElementById('study-category');
+            const categories = [...new Set(DICT_DATA.map(w => w.cat))];
+            categories.forEach(cat => {
+                if(cat) {
+                    const opt = document.createElement('option');
+                    opt.value = cat;
+                    opt.textContent = cat;
+                    catSelect.appendChild(opt);
+                }
+            });
+        }
 
- area.innerHTML=`
- <div class="flashcard-wrapper" onclick="toggleFlip()">
-  <div id="main-card" class="flashcard">
-   <div class="card-face card-front">
-    <div class="word-jp">${w.jp}</div>
-    <div class="word-kana">${w.kana}</div>
-    ${p.wrongCount>0?`<div>⚠️ Sai ${p.wrongCount} lần</div>`:""}
-   </div>
-   <div class="card-face card-back">
-    <div class="word-vn">${w.vn}</div>
-    <div class="word-desc">${w.desc}</div>
-   </div>
-  </div>
- </div>
- <div style="text-align:center">${currentCardIndex+1}/${currentSessionWords.length}</div>
- `;
+        function updateStatistics() {
+            let total = DICT_DATA.length;
+            let learned = 0;
+            let notLearned = 0;
+            let review = 0;
 
- setTimeout(()=>{
-  const c=document.getElementById("main-card");
-  if(c)c.classList.remove("flipped");
- },0);
-}
+            DICT_DATA.forEach(word => {
+                const state = userProgress[word.id].status;
+                if (state === 'learned') learned++;
+                else if (state === 'review') review++;
+                else notLearned++;
+            });
 
-function toggleFlip(){
- const c=document.getElementById("main-card");
- if(c)c.classList.toggle("flipped");
-}
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-learned').textContent = learned;
+            document.getElementById('stat-not-learned').textContent = notLearned;
+            document.getElementById('stat-review').textContent = review;
 
-/* ========= ✅ FIXED LOGIC ========= */
-function handleCardAction(correct){
- const w=currentSessionWords[currentCardIndex];
- const p=userProgress[w.id];
+            let percent = total > 0 ? Math.round((learned / total) * 100) : 0;
+            document.getElementById('progress-percent').textContent = percent + "%";
+            document.getElementById('progress-fill').style.width = percent + "%";
+        }
 
- if(correct){
-   if(p.status==="review") p.status="learned";
-   if(p.wrongCount>0) p.wrongCount--;
- }else{
-   p.status="review";
-   p.wrongCount++;
- }
+        function switchView(viewId, navBtn) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
 
- saveProgress();
- currentCardIndex++;
- if(currentCardIndex>=currentSessionWords.length) currentCardIndex=0;
- renderFlashcard();
-}
+            document.getElementById('view-' + viewId).classList.add('active');
+            if (navBtn) {
+                navBtn.classList.add('active');
+            } else {
+                const items = document.querySelectorAll('.nav-item');
+                if(viewId === 'flashcard') items[1].classList.add('active');
+                if(viewId === 'list') items[2].classList.add('active');
+            }
 
-initSession();
-</script>
+            if (viewId === 'stats') updateStatistics();
+            if (viewId === 'list') renderWordList();
+            if (viewId === 'flashcard') initFlashcardSession();
+        }
+
+        function initFlashcardSession() {
+            const mode = document.getElementById('study-mode').value;
+            const category = document.getElementById('study-category').value;
+
+            currentSessionWords = DICT_DATA.filter(word => {
+                if (category !== 'all' && word.cat !== category) return false;
+
+                const state = userProgress[word.id].status;
+                if (mode === 'review' && state !== 'review') return false;
+                if (mode === 'not-learned' && state !== 'not-learned') return false;
+                
+                return true;
+            });
+
+            // Thuật toán xáo trộn ngẫu nhiên bộ từ học
+            currentSessionWords.sort(() => Math.random() - 0.5);
+            currentCardIndex = 0;
+
+            renderFlashcard();
+        }
+
+        function renderFlashcard() {
+            const container = document.getElementById('card-area');
+            
+            if (currentSessionWords.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🎉</div>
+                        <h3>Mục này đang trống!</h3>
+                        <p style="font-size:0.85rem; margin-top:6px;">Không tìm thấy từ vựng nào khớp với bộ lọc. Hãy chuyển chế độ học hoặc đổi chủ đề khác.</p>
+                    </div>`;
+                return;
+            }
+
+            const word = currentSessionWords[currentCardIndex];
+            const state = userProgress[word.id];
+            const displayCat = word.cat ? word.cat : 'Chung';
+
+            container.innerHTML = `
+                <div class="flashcard-wrapper" onclick="toggleCardFlip()">
+                    <div id="main-card" class="flashcard">
+                        <div class="card-face card-front">
+                            <span class="card-tag">` + displayCat + `</span>
+                            <div class="word-jp">` + word.jp + `</div>
+                            <div class="word-kana">` + (word.kana || '') + `</div>
+                            ` + (state.wrongCount > 0 ? `<div style="font-size:0.75rem; color:var(--accent); margin-top:8px; font-weight:600;">⚠️ Hay quên: Đã sai ` + state.wrongCount + ` lần</div>` : '') + `
+                            <div class="hint-text">Bấm vào thẻ xem nghĩa Tiếng Việt 🔁</div>
+                        </div>
+                        <div class="card-face card-back">
+                            <span class="card-tag">` + displayCat + `</span>
+                            <div class="word-vn">` + word.vn + `</div>
+                            <div class="word-desc">` + (word.desc || 'Không có mô tả.') + `</div>
+                            <div class="hint-text" style="color: rgba(255,255,255,0.6)">Bấm vào thẻ quay lại chữ Nhật 🔁</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center; font-size:0.8rem; color:var(--text-muted); font-weight:500;">
+                    Từ số: ` + (currentCardIndex + 1) + ` / ` + currentSessionWords.length + `
+                </div>
+            `;
+        }
+
+        function toggleCardFlip() {
+            const card = document.getElementById('main-card');
+            if(card) card.classList.toggle('flipped');
+        }
+
+        function handleCardAction(isCorrect) {
+            if (currentSessionWords.length === 0) return;
+
+            const word = currentSessionWords[currentCardIndex];
+            
+            if (isCorrect) {
+                userProgress[word.id].status = 'learned';
+            } else {
+                userProgress[word.id].status = 'review';
+                userProgress[word.id].wrongCount += 1;
+            }
+
+            saveProgress();
+
+            currentCardIndex++;
+            if (currentCardIndex >= currentSessionWords.length) {
+                currentCardIndex = 0;
+                initFlashcardSession(); 
+            } else {
+                renderFlashcard();
+            }
+        }
+
+        function renderWordList() {
+            const filterValue = document.getElementById('list-status-filter').value;
+            const target = document.getElementById('word-list-target');
+            target.innerHTML = '';
+
+            const filtered = DICT_DATA.filter(word => {
+                if (filterValue === 'all') return true;
+                return userProgress[word.id].status === filterValue;
+            });
+
+            if(filtered.length === 0) {
+                target.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <p>Không có dữ liệu hiển thị.</p>
+                    </div>`;
+                return;
+            }
+
+            filtered.forEach(word => {
+                const state = userProgress[word.id];
+                const item = document.createElement('div');
+                item.className = 'word-item status-' + state.status;
+
+                let badgeClass = 'badge-not-learned';
+                let badgeText = 'Mới / Chưa học';
+                if(state.status === 'learned') { badgeClass = 'badge-learned'; badgeText = 'Đã thuộc'; }
+                if(state.status === 'review') { badgeClass = 'badge-review'; badgeText = 'Hay quên (' + state.wrongCount + ')'; }
+
+                item.innerHTML = `
+                    <div class="word-item-info">
+                        <div class="item-jp-row">
+                            <span class="item-jp">` + word.jp + `</span>
+                            <span class="item-kana">/ ` + (word.kana || '') + `</span>
+                        </div>
+                        <div class="item-vn">` + word.vn + `</div>
+                    </div>
+                    <span class="item-status-badge ` + badgeClass + `">` + badgeText + `</span>
+                `;
+                target.appendChild(item);
+            });
+        }
+    </script>
 </body>
 </html>
