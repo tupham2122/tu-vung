@@ -1,784 +1,1159 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Học Từ Vựng Dập Kim Loại 🇻🇳🇯🇵</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&display=swap');
-        
-        :root {
-            --primary: #1A2557;
-            --accent: #C0392B;
-            --success: #2ECC71;
-            --warning: #F1C40F;
-            --bg: #F5F6FA;
-            --card-bg: #FFFFFF;
-            --text-main: #1C1C2E;
-            --text-muted: #6B7280;
-            --border: #E5E7EB;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Học Từ Vựng Dập Kim Loại</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght=400;700&family=Be+Vietnam+Pro:wght=400;600;700&display=swap');
+:root{
+  --red:#C0392B;--navy:#1A2557;--navy-mid:#253275;
+  --gold:#D4AC0D;--gold-light:#FEF9E7;--bg:#F5F6FA;--card:#FFFFFF;
+  --text:#1C1C2E;--muted:#6B7280;--border:#E5E7EB;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);--radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#C0392B 100%);padding:14px 16px;position:sticky;top:0;z-index:100;box-shadow:0 3px 16px rgba(0,0,0,0.25)}
+.header-top{display:flex;align-items:center;gap:10px}
+.flag-pair{font-size:20px;line-height:1;flex-shrink:0}
+.header h1{color:#fff;font-size:14px;font-weight:700;line-height:1.2}
+.header h1 span{display:block;font-size:10px;font-weight:400;opacity:.75;font-family:'Noto Sans JP',sans-serif;margin-top:2px}
+.count-badge{background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:600;padding:4px 8px;border-radius:20px;white-space:nowrap}
+.lang-toggle{display:flex;gap:4px;margin-left:auto;flex-shrink:0}
+.lang-btn{padding:4px 9px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.4);background:transparent;color:rgba(255,255,255,.7)}
+.lang-btn.active{background:rgba(255,255,255,.25);color:#fff;border-color:rgba(255,255,255,.8)}
 
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.5;
-            padding-bottom: 90px;
-        }
+/* NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;box-shadow:0 -4px 16px rgba(0,0,0,.08);z-index:200}
+.nav-btn{flex:1;padding:10px 4px 12px;text-align:center;cursor:pointer;font-size:10px;font-weight:600;color:var(--muted);user-select:none}
+.nav-btn .nav-icon{font-size:20px;display:block;margin-bottom:2px}
+.nav-btn.active{color:var(--red)}
 
-        header {
-            background: linear-gradient(135deg, var(--primary), #253275);
-            color: white;
-            padding: 24px 16px;
-            text-align: center;
-            border-bottom-left-radius: var(--radius-lg);
-            border-bottom-right-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-        }
+/* PANELS */
+.panel{display:none;padding:16px;padding-bottom:100px}
+.panel.visible{display:block}
+.speak-btn{background:none;border:none;cursor:pointer;font-size:16px;padding:2px 4px;opacity:.7;vertical-align:middle}
+.speak-btn:active{opacity:1;transform:scale(1.2)}
 
-        header h1 {
-            font-size: 1.35rem;
-            margin-bottom: 6px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.visible{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:24px;margin:20px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.modal-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.modal-msg{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.modal-btns{display:flex;gap:10px}
+.modal-btn-cancel{flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;color:var(--muted)}
+.modal-btn-confirm{flex:1;padding:11px;border-radius:10px;border:none;background:var(--red);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
 
-        header p {
-            font-size: 0.85rem;
-            opacity: 0.85;
-        }
+/* FLASHCARD */
+.flash-controls{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.ctrl-label{font-size:12px;font-weight:600;color:var(--muted)}
+.group-sel{flex:1;font-size:13px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--text);outline:none}
+.mode-wrap{display:flex;gap:6px}
+.mode-btn{padding:6px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--muted)}
+.mode-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.stat-row{display:flex;gap:8px;margin-bottom:12px}
+.stat-box{flex:1;background:#fff;border-radius:10px;padding:8px;text-align:center;box-shadow:var(--shadow)}
+.stat-num{font-size:20px;font-weight:700;line-height:1}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:2px}
+.stat-num.green{color:#27AE60}.stat-num.red{color:var(--red)}.stat-num.blue{color:var(--navy)}
+.progress-wrap{background:var(--border);border-radius:4px;height:5px;margin-bottom:14px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--navy),var(--red));border-radius:4px;transition:width .4s}
+.card-wrap{perspective:1000px;min-height:280px;margin-bottom:70px;cursor:pointer}
+.fc{width:100%;min-height:280px;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.fc.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;width:100%;min-height:280px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.fc-front{background:linear-gradient(135deg,var(--navy) 0%,#253272 100%);color:#fff}
+.fc-back{background:#fff;transform:rotateY(180deg);border:2px solid var(--border)}
+.fc-hint{font-size:11px;opacity:.6;margin-bottom:12px;text-align:center}
+.fc-main{font-size:26px;font-weight:700;text-align:center;line-height:1.3;margin-bottom:8px}
+.fc-sub{font-size:14px;opacity:.75;text-align:center}
+.fc-img-wrap{margin:10px auto 0;background:#f5f6fa;border-radius:10px;padding:8px;display:flex;align-items:center;justify-content:center;min-height:80px;width:160px}
+.fc-img{max-width:150px;max-height:90px;object-fit:contain}
+.fc-back-viet{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px;text-align:center}
+.fc-back-jp{font-family:'Noto Sans JP',sans-serif;font-size:22px;color:var(--red);font-weight:700;text-align:center;margin-bottom:4px}
+.fc-back-hira{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--muted);text-align:center;margin-bottom:8px}
+.fc-back-note{font-size:12px;color:var(--muted);font-style:italic;text-align:center;max-width:260px}
+.fc-back-group{display:inline-block;background:var(--gold-light);color:#7D6608;border:1px solid #F9E79F;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:8px}
+.tap-hint{font-size:11px;color:var(--muted);text-align:center;margin-bottom:10px}
+.flash-actions{display:flex;gap:12px;position:fixed;bottom:65px;left:0;right:0;padding:0 16px;z-index:100}
+.flash-btn{flex:1;padding:14px 8px;border-radius:16px;border:none;font-weight:700;cursor:pointer;transition:transform .1s;box-shadow:0 2px 10px rgba(0,0,0,0.15);display:flex;flex-direction:column;align-items:center;gap:4px}
+.flash-btn:active{transform:scale(.95)}
+.flash-btn .bi{font-size:26px;line-height:1}
+.flash-btn .bl{font-size:13px;font-weight:700}
+.flash-btn.wrong{background:#FADBD8;color:var(--red)}
+.flash-btn.good{background:#D5F5E3;color:#1E8449}
+.done-wrap{text-align:center;padding:40px 16px}
+.done-icon{font-size:56px;margin-bottom:12px}
+.done-wrap h2{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.done-wrap p{font-size:14px;color:var(--muted);margin-bottom:16px}
+.restart-btn{background:var(--navy);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:15px;font-weight:700;cursor:pointer}
+.empty-wrap{text-align:center;padding:60px 20px;color:var(--muted)}
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
+/* QUIZ */
+.quiz-controls{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.qtype-wrap{display:flex;gap:6px;width:100%}
+.qtype-btn{flex:1;padding:7px 4px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--muted);text-align:center}
+.qtype-btn.active{background:var(--red);color:#fff;border-color:var(--red)}
+.mc-card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.1);margin-bottom:14px}
+.mc-qnum{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.mc-img-wrap{display:flex;justify-content:center;margin-bottom:14px;background:#f5f6fa;border-radius:10px;padding:8px}
+.mc-img{max-width:140px;max-height:85px;object-fit:contain}
+.mc-q{font-size:18px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:6px;line-height:1.3}
+.mc-q.jp{font-family:'Noto Sans JP',sans-serif;color:var(--red)}
+.mc-sub{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:var(--muted);text-align:center;margin-bottom:16px}
+.mc-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mc-opt{padding:12px 10px;border-radius:12px;border:2px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:all .15s;line-height:1.3;color:var(--text)}
+.mc-opt:active{transform:scale(.97)}
+.mc-opt.correct{background:#D5F5E3;border-color:#27AE60;color:#1E8449}
+.mc-opt.wrong{background:#FADBD8;border-color:var(--red);color:var(--red)}
+.mc-opt.disabled{pointer-events:none;opacity:.6}
+.mc-fb{text-align:center;padding:10px;font-size:13px;font-weight:600;border-radius:10px;margin-top:10px}
+.mc-fb.ok{background:#D5F5E3;color:#1E8449}
+.mc-fb.fail{background:#FADBD8;color:var(--red)}
+.mc-next{width:100%;padding:13px;border-radius:12px;border:none;background:var(--navy);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px}
+.match-wrap{background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.1);margin-bottom:14px}
+.match-title{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;text-align:center}
+.match-cols{display:flex;gap:10px}
+.match-col{flex:1;display:flex;flex-direction:column;gap:8px}
+.match-lbl{font-size:11px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.match-item{padding:10px 8px;border-radius:10px;border:2px solid var(--border);font-size:13px;font-weight:600;text-align:center;cursor:pointer;transition:all .15s;line-height:1.3;min-height:44px;display:flex;align-items:center;justify-content:center}
+.match-item.jp{font-family:'Noto Sans JP',sans-serif;color:var(--red)}
+.match-item.selected{border-color:var(--navy);background:#EBF3FB}
+.match-item.matched-ok{border-color:#27AE60;background:#D5F5E3;color:#1E8449;pointer-events:none}
+.match-item.matched-fail{border-color:var(--red);background:#FADBD8;color:var(--red)}
+.match-next{width:100%;padding:13px;border-radius:12px;border:none;background:var(--navy);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:14px}
 
-        /* Bottom Nav Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            border-top: 1px solid var(--border);
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
-            z-index: 1000;
-        }
+/* STATS NÂNG CẤP */
+.stats-hdr{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:14px}
+.stats-tabs{display:flex;background:var(--border);padding:3px;border-radius:10px;margin-bottom:14px}
+.stats-tab-btn{flex:1;padding:8px;text-align:center;font-size:12px;font-weight:700;border:none;background:transparent;color:var(--muted);border-radius:8px;cursor:pointer}
+.stats-tab-btn.active{background:#fff;color:var(--navy);box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+.stats-sub-panel{display:none}
+.stats-sub-panel.visible{display:block}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.stats-box{background:#fff;border-radius:14px;padding:14px;box-shadow:var(--shadow);text-align:center}
+.stats-num{font-size:28px;font-weight:700;line-height:1;color:var(--navy)}
+.stats-num.green{color:#27AE60}.stats-num.red{color:var(--red)}.stats-num.gold{color:var(--gold)}.stats-num.blue{color:var(--navy)}
+.stats-lbl{font-size:11px;color:var(--muted);margin-top:4px;font-weight:600}
+.stats-section{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.stats-section h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bar-lbl{font-size:12px;color:var(--muted);min-width:65px;font-weight:600}
+.bar-wrap{flex:1;background:var(--border);border-radius:4px;height:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.bar-fill.green{background:#27AE60}.bar-fill.red{background:var(--red)}.bar-fill.blue{background:var(--navy)}
+.bar-val{font-size:12px;font-weight:700;min-width:36px;text-align:right}
+.day-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.day-row:last-child{border-bottom:none}
+.day-date{font-size:12px;color:var(--muted);font-weight:600}
+.day-info{display:flex;gap:12px}
+.day-info span{font-size:12px;font-weight:700}
+.day-info .g{color:#27AE60}.day-info .r{color:var(--red)}.day-info .b{color:var(--navy)}
+.stats-reset-btn{width:100%;padding:11px;border-radius:10px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;margin-top:4px}
+.smart-badge{display:inline-block;background:var(--gold-light);color:#7D6608;border:1px solid #F9E79F;font-size:10px;font-weight:600;padding:1px 7px;border-radius:20px;margin-left:6px}
 
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-family: inherit;
-            cursor: pointer;
-            width: 33.33%;
-            transition: var(--transition);
-        }
-
-        .nav-item.active {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .nav-item svg {
-            width: 22px;
-            height: 22px;
-            margin-bottom: 4px;
-            fill: currentColor;
-        }
-
-        /* App Views */
-        .view-section {
-            display: none;
-        }
-
-        .view-section.active {
-            display: block;
-            animation: fadeIn 0.35s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Statistics Dashboard */
-        .progress-container {
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
-        }
-
-        .progress-label-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .progress-bar-bg {
-            background: var(--border);
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            background: linear-gradient(90deg, var(--success), #27AE60);
-            height: 100%;
-            width: 0%;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            border-left: 5px solid var(--border);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-card.all { border-left-color: var(--primary); }
-        .stat-card.learned { border-left-color: var(--success); }
-        .stat-card.not-learned { border-left-color: var(--warning); }
-        .stat-card.review { border-left-color: var(--accent); }
-
-        .stat-value {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* Flashcard Component */
-        .flashcard-wrapper {
-            perspective: 1000px;
-            margin: 16px auto;
-            width: 100%;
-            height: 300px;
-        }
-
-        .flashcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .flashcard.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .card-front {
-            background: var(--card-bg);
-            color: var(--text-main);
-        }
-
-        .card-face.card-back {
-            background: var(--primary);
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        .card-tag {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            background: #EBF0F5;
-            color: var(--primary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .card-back .card-tag {
-            background: rgba(255,255,255,0.15);
-            color: white;
-        }
-
-        .word-jp {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 2.1rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--accent);
-        }
-        
-        .card-back .word-jp {
-            color: #FFFFFF;
-        }
-
-        .word-kana {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .card-back .word-kana {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .word-vn {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .word-desc {
-            font-size: 0.9rem;
-            opacity: 0.85;
-            max-width: 90%;
-        }
-
-        .hint-text {
-            position: absolute;
-            bottom: 14px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            animation: pulse-effect 2s infinite;
-        }
-
-        @keyframes pulse-effect {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
-
-        /* Action Buttons */
-        .action-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .btn-wrong {
-            background-color: #FADBD8;
-            color: #C0392B;
-        }
-
-        .btn-correct {
-            background-color: #D4EFDF;
-            color: #196F3D;
-        }
-
-        /* Filter Box */
-        .filter-box {
-            background: var(--card-bg);
-            padding: 14px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            margin-bottom: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .filter-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        select {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            font-family: inherit;
-            font-size: 0.85rem;
-            color: var(--text-main);
-            outline: none;
-        }
-
-        /* Word List Styling */
-        .list-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .word-item {
-            background: var(--card-bg);
-            padding: 14px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid var(--border);
-        }
-
-        .word-item.status-learned { border-left-color: var(--success); }
-        .word-item.status-not-learned { border-left-color: var(--warning); }
-        .word-item.status-review { border-left-color: var(--accent); }
-
-        .word-item-info {
-            flex: 1;
-            padding-right: 8px;
-        }
-
-        .item-jp-row {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 2px;
-        }
-
-        .item-jp {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-
-        .item-kana {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .item-vn {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .item-status-badge {
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .badge-learned { background: #D4EFDF; color: #196F3D; }
-        .badge-not-learned { background: #FCF3CF; color: #7D6608; }
-        .badge-review { background: #FADBD8; color: #C0392B; }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-        }
-
-        .empty-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-    </style>
+/* ABOUT */
+.about-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:12px}
+.about-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.about-card p,.about-card li{font-size:13px;color:var(--muted);line-height:1.7}
+.about-card ul{padding-left:18px}
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>Sổ Tay Học Từ Vựng Dập Kim Loại</h1>
-        <p>Hệ thống lặp lại thông minh ôn tập từ hay quên</p>
-    </header>
-
-    <div class="container">
-        
-        <section id="view-stats" class="view-section active">
-            <div class="progress-container">
-                <div class="progress-label-group">
-                    <span>Tiến độ ghi nhớ tổng thể</span>
-                    <span id="progress-percent">0%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div id="progress-fill" class="progress-bar-fill"></div>
-                </div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card all">
-                    <span class="stat-label">Tổng số từ</span>
-                    <span id="stat-total" class="stat-value">0</span>
-                </div>
-                <div class="stat-card learned">
-                    <span class="stat-label">Đã thuộc hoàn toàn</span>
-                    <span id="stat-learned" class="stat-value">0</span>
-                </div>
-                <div class="stat-card not-learned">
-                    <span class="stat-label">Chưa học / Mới</span>
-                    <span id="stat-not-learned" class="stat-value">0</span>
-                </div>
-                <div class="stat-card review">
-                    <span class="stat-label">Hay quên (Cần ôn)</span>
-                    <span id="stat-review" class="stat-value">0</span>
-                </div>
-            </div>
-
-            <div class="filter-box" style="align-items: center; text-align: center; margin-top: 20px;">
-                <p style="font-size: 0.85rem; font-weight: 500; color: var(--text-main)">Bắt đầu rèn luyện trí nhớ ngay hôm nay!</p>
-                <button class="btn btn-correct" style="width: 100%; margin-top: 8px;" onclick="switchView('flashcard')">👉 Vào Học Flashcard</button>
-            </div>
-        </section>
-
-        <section id="view-flashcard" class="view-section">
-            <div class="filter-box">
-                <div class="filter-row">
-                    <label for="study-mode" style="font-size: 0.8rem; font-weight: 600;">Chế độ:</label>
-                    <select id="study-mode" onchange="initFlashcardSession()">
-                        <option value="all">Học tất cả các từ</option>
-                        <option value="review">Ưu tiên từ hay quên (Cần ôn lại) ⚠️</option>
-                        <option value="not-learned">Chỉ học từ mới / Chưa học</option>
-                    </select>
-                </div>
-                <div class="filter-row">
-                    <label for="study-category" style="font-size: 0.8rem; font-weight: 600;">Chủ đề:</label>
-                    <select id="study-category" onchange="initFlashcardSession()">
-                        <option value="all">Tất cả chủ đề</option>
-                    </select>
-                </div>
-            </div>
-
-            <div id="card-area">
-                </div>
-
-            <div class="action-container">
-                <button class="btn btn-wrong" onclick="handleCardAction(false)">
-                    ❌ Chưa thuộc
-                </button>
-                <button class="btn btn-correct" onclick="handleCardAction(true)">
-                    ✅ Đã thuộc bài
-                </button>
-            </div>
-        </section>
-
-        <section id="view-list" class="view-section">
-            <div class="filter-box">
-                <select id="list-status-filter" onchange="renderWordList()">
-                    <option value="all">Tất cả trạng thái</option>
-                    <option value="learned">Đã thuộc hoàn toàn</option>
-                    <option value="not-learned">Chưa học / Mới</option>
-                    <option value="review">Hay quên (Cần ôn tập)</option>
-                </select>
-            </div>
-            <div id="word-list-target" class="list-container">
-                </div>
-        </section>
-
+<div class="header">
+  <div class="header-top">
+    <div class="flag-pair">🇻🇳🇯🇵</div>
+    <h1 id="appTitle">Học Từ Vựng Dập Kim Loại<span>金属プレス加工 専門用語</span></h1>
+    <div class="count-badge">181</div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="langVN" onclick="setLang('vn')">VN</button>
+      <button class="lang-btn" id="langJP" onclick="setLang('jp')">JP</button>
     </div>
+  </div>
+</div>
 
-    <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchView('stats', this)">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-            Thống kê
-        </button>
-        <button class="nav-item" onclick="switchView('flashcard', this)">
-            <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-            Flashcard
-        </button>
-        <button class="nav-item" onclick="switchView('list', this)">
-            <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-7v2h14V6H7z"/></svg>
-            Sổ từ
-        </button>
-    </nav>
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">Xác nhận</div>
+    <div class="modal-msg" id="modalMsg">Bạn có chắc chắn không?</div>
+    <div class="modal-btns">
+      <button class="modal-btn-cancel" id="modalCancel" onclick="closeModal()">Huỷ</button>
+      <button class="modal-btn-confirm" id="modalConfirm">Xoá</button>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // Đồng bộ cơ sở dữ liệu gốc từ app cũ (Hệ thống sẽ tự nhận dạng 181 từ vựng gốc của bạn tại đây)
-        const DICT_DATA = [
-            { id: 1, cat: "Thiết bị & Máy móc", jp: "プレス機械", kana: "ぷれすきかい", vn: "Máy dập", desc: "Thiết bị cơ khí sử dụng lực lớn để tạo hình phôi tấm tấm kim loại bằng khuôn." },
-            { id: 2, cat: "Thiết bị & Máy móc", jp: "クランクプレス", kana: "くらんくぷれす", vn: "Máy dập trục khuỷu", desc: "Loại máy dập cơ học chuyển đổi chuyển động quay thành chuyển động tịnh tiến qua hệ khuỷu." },
-            { id: 3, cat: "Khuôn & Linh kiện", jp: "金型", kana: "かながた", vn: "Khuôn dập", desc: "Bộ dụng cụ định hình kim loại gồm chày (Punch) và cối (Die)." },
-            { id: 4, cat: "Khuôn & Linh kiện", jp: "パン치", kana: "ぱんち", vn: "Chày dập / Đầu đục", desc: "Phần khuôn phía trên di chuyển xuống để tác động lực trực tiếp lên phôi tấm." },
-            { id: 5, cat: "Khuôn & Linh kiện", jp: "ダイ", kana: "だい", vn: "Cối dập / Khuôn dưới", desc: "Phần khuôn cố định phía dưới đỡ phôi để kết hợp tạo hình cùng chày dập." },
-            { id: 6, cat: "Công nghệ & Quy trình", jp: "抜き加工", kana: "ぬきかこう", vn: "Gia công cắt/đột dập", desc: "Quá trình tách phôi kim loại dọc theo biên dạng đóng để đột lỗ hoặc cắt biên." },
-            { id: 7, cat: "Công nghệ & Quy trình", jp: "曲げ加工", kana: "まげかこう", vn: "Gia công uốn", desc: "Tạo hình góc nghiêng phẳng hoặc định dạng uốn cho vật liệu kim loại tấm." },
-            { id: 8, cat: "An toàn & Vận hành", jp: "安全装置", kana: "あんぜんそうち", vn: "Thiết bị an toàn", desc: "Hệ thống cảm biến hồng ngoại hoặc nút bấm kép bảo vệ tay người thao tác máy." },
-            { id: 9, cat: "Vật liệu", jp: "鋼板", kana: "こうはん", vn: "Thép tấm", desc: "Vật liệu đầu vào phổ biến trong quy trình sản xuất dập linh kiện ô tô, điện tử." },
-            { id: 10, cat: "Lỗi sản phẩm", jp: "ばり", kana: "ばり", vn: "Bavia / Gờ sắc", desc: "Phần kim loại thừa dính ở mép biên dạng cắt do khe hở khuôn quá rộng hoặc mòn dao." }
-            // Mẹo: Bạn có thể sao chép thêm toàn bộ 181 từ từ mảng DICT_DATA cũ dán đè vào đây nếu muốn đồng bộ hết từ.
-        ];
+<div class="panel" id="panelFlash">
+  <div class="flash-controls">
+    <span class="ctrl-label" id="lblGroup">Nhóm:</span>
+    <select class="group-sel" id="flashGroupSel" onchange="initFlash()">
+      <option value="all" data-vn="Tất cả (181 từ)" data-jp="すべて (181語)">Tất cả (181 từ)</option>
+      <option value="fav" data-vn="⭐ Đã lưu" data-jp="⭐ お気に入り">⭐ Đã lưu</option>
+      <option value="smart" data-vn="🧠 Ôn tập thông minh" data-jp="🧠 スマート復習">🧠 Ôn tập thông minh</option>
+      <option value="🔧 Máy móc">🔧 Máy móc</option>
+      <option value="🔩 Khuôn">🔩 Khuôn</option>
+      <option value="⚙️ Gia công">⚙️ Gia công</option>
+      <option value="📏 Đo lường">📏 Đo lường</option>
+      <option value="🛡️ An toàn">🛡️ An toàn</option>
+      <option value="🔨 Vật liệu">🔨 Vật liệu</option>
+      <option value="📋 Quy trình">📋 Quy trình</option>
+    </select>
+    <div class="mode-wrap">
+      <button class="mode-btn active" id="btnModeVN" onclick="setFlashMode('vn')">VN→JP</button>
+      <button class="mode-btn" id="btnModeJP" onclick="setFlashMode('jp')">JP→VN</button>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num blue" id="fsTotal">0</div><div class="stat-lbl" id="lblRemain">Còn lại</div></div>
+    <div class="stat-box"><div class="stat-num green" id="fsGood">0</div><div class="stat-lbl" id="lblKnow">Thuộc</div></div>
+    <div class="stat-box"><div class="stat-num red" id="fsBad">0</div><div class="stat-lbl" id="lblDontKnow">Chưa thuộc</div></div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="flashBar" style="width:0%"></div></div>
+  <div id="flashContent"></div>
+</div>
 
-        // Lưu tiến độ học vào LocalStorage
-        let userProgress = JSON.parse(localStorage.getItem('press_study_progress')) || {};
-        let currentSessionWords = [];
-        let currentCardIndex = 0;
+<div class="panel" id="panelQuiz">
+  <div class="quiz-controls">
+    <span class="ctrl-label" id="lblGroup2">Nhóm:</span>
+    <select class="group-sel" id="quizGroupSel" onchange="initQuiz()">
+      <option value="all">Tất cả (181 từ)</option>
+      <option value="fav">⭐ Đã lưu</option>
+      <option value="smart">🧠 Ôn tập thông minh</option>
+      <option value="🔧 Máy móc">🔧 Máy móc</option>
+      <option value="🔩 Khuôn">🔩 Khuôn</option>
+      <option value="⚙️ Gia công">⚙️ Gia công</option>
+      <option value="📏 Đo lường">📏 Đo lường</option>
+      <option value="🛡️ An toàn">🛡️ An toàn</option>
+      <option value="🔨 Vật liệu">🔨 Vật liệu</option>
+      <option value="📋 Quy trình">📋 Quy trình</option>
+    </select>
+    <div class="qtype-wrap">
+      <div class="qtype-btn active" id="qTypeBtn1" onclick="setQuizType('mc')">🔤 Trắc nghiệm</div>
+      <div class="qtype-btn" id="qTypeBtn2" onclick="setQuizType('match')">🔗 Nối từ</div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num blue" id="qsTotal">0</div><div class="stat-lbl" id="lblQuestions">Câu hỏi</div></div>
+    <div class="stat-box"><div class="stat-num green" id="qsCorrect">0</div><div class="stat-lbl" id="lblCorrect">Đúng</div></div>
+    <div class="stat-box"><div class="stat-num red" id="qsWrong">0</div><div class="stat-lbl" id="lblIncorrect">Sai</div></div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="quizBar" style="width:0%"></div></div>
+  <div id="quizContent"></div>
+</div>
 
-        document.addEventListener("DOMContentLoaded", () => {
-            initDatabase();
-            populateCategories();
-            updateStatistics();
-            initFlashcardSession();
-        });
+<div class="panel" id="panelStats">
+  <div class="stats-hdr" id="statsTitle">📊 Thống kê học tập</div>
+  
+  <div class="stats-tabs">
+    <button class="stats-tab-btn active" id="tabFlashBtn" onclick="switchStatsTab('flash')">🃏 Flashcard</button>
+    <button class="stats-tab-btn" id="tabQuizBtn" onclick="switchStatsTab('quiz')">📝 Kiểm tra</button>
+  </div>
 
-        function initDatabase() {
-            DICT_DATA.forEach(word => {
-                if (!userProgress[word.id]) {
-                    userProgress[word.id] = {
-                        status: 'not-learned',
-                        wrongCount: 0
-                    };
-                }
-            });
-            saveProgress();
-        }
+  <!-- THỐNG KÊ FLASHCARD -->
+  <div class="stats-sub-panel visible" id="statsSubFlash">
+    <div class="stats-grid">
+      <div class="stats-box"><div class="stats-num gold" id="stFlashStreak">0</div><div class="stats-lbl" id="lblFlashStreak">🔥 Ngày liên tiếp</div></div>
+      <div class="stats-box"><div class="stats-num blue" id="stFlashTotal">0</div><div class="stats-lbl" id="lblFlashTotalCards">🎴 Số thẻ đã lật</div></div>
+      <div class="stats-box"><div class="stats-num green" id="stFlashGood">0</div><div class="stats-lbl" id="lblFlashGood">✅ Số từ đã thuộc</div></div>
+      <div class="stats-box"><div class="stats-num red" id="stFlashBad">0</div><div class="stats-lbl" id="lblFlashBad">❌ Từ chưa thuộc</div></div>
+    </div>
+    <div class="stats-section">
+      <h3 id="lblFlashRatioTitle">🎯 Tỉ lệ thuộc bài</h3>
+      <div class="bar-row">
+        <span class="bar-lbl" id="lblFlashRatioGood">Đã thuộc</span>
+        <div class="bar-wrap"><div class="bar-fill green" id="stFlashBarGood" style="width:0%"></div></div>
+        <span class="bar-val" id="stFlashPctGood">0%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-lbl" id="lblFlashRatioBad">Chưa thuộc</span>
+        <div class="bar-wrap"><div class="bar-fill red" id="stFlashBarBad" style="width:0%"></div></div>
+        <span class="bar-val" id="stFlashPctBad">0%</span>
+      </div>
+    </div>
+    <div class="stats-section">
+      <h3 id="lblFlashHistoryTitle">📅 Lịch sử học Flashcard (7 ngày)</h3>
+      <div id="stFlashHistory"></div>
+    </div>
+  </div>
 
-        function saveProgress() {
-            localStorage.setItem('press_study_progress', JSON.stringify(userProgress));
-        }
+  <!-- THỐNG KÊ KIỂM TRA -->
+  <div class="stats-sub-panel" id="statsSubQuiz">
+    <div class="stats-grid">
+      <div class="stats-box"><div class="stats-num gold" id="stQuizStreak">0</div><div class="stats-lbl" id="lblQuizStreak">🔥 Ngày liên tiếp</div></div>
+      <div class="stats-box"><div class="stats-num blue" id="stQuizTotal">0</div><div class="stats-lbl" id="lblQuizTotal">📚 Tổng số câu làm</div></div>
+      <div class="stats-box"><div class="stats-num green" id="stQuizCorrect">0</div><div class="stats-lbl" id="lblQuizCorrect">✅ Trả lời đúng</div></div>
+      <div class="stats-box"><div class="stats-num red" id="stQuizWrong">0</div><div class="stats-lbl" id="lblQuizWrong">❌ Trả lời sai</div></div>
+    </div>
+    <div class="stats-section">
+      <h3 id="lblQuizRatioTitle">🎯 Tỉ lệ đúng kiểm tra</h3>
+      <div class="bar-row">
+        <span class="bar-lbl" id="lblQuizRatioGood">Đúng</span>
+        <div class="bar-wrap"><div class="bar-fill green" id="stQuizBarGood" style="width:0%"></div></div>
+        <span class="bar-val" id="stQuizPctGood">0%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-lbl" id="lblQuizRatioBad">Sai</span>
+        <div class="bar-wrap"><div class="bar-fill red" id="stQuizBarBad" style="width:0%"></div></div>
+        <span class="bar-val" id="stQuizPctBad">0%</span>
+      </div>
+    </div>
+    <div class="stats-section">
+      <h3 id="lblQuizHistoryTitle">📅 Lịch sử làm kiểm tra (7 ngày)</h3>
+      <div id="stQuizHistory"></div>
+    </div>
+  </div>
 
-        function populateCategories() {
-            const catSelect = document.getElementById('study-category');
-            const categories = [...new Set(DICT_DATA.map(w => w.cat))];
-            categories.forEach(cat => {
-                if(cat) {
-                    const opt = document.createElement('option');
-                    opt.value = cat;
-                    opt.textContent = cat;
-                    catSelect.appendChild(opt);
-                }
-            });
-        }
+  <!-- PHẦN CHUNG: TỪ HAY SAI -->
+  <div class="stats-section">
+    <h3 id="lblWeakTitle">⚠️ Từ cần ôn lại <span class="smart-badge" id="lblWeakBadge">hay sai nhất</span></h3>
+    <div id="stWeakWords"></div>
+  </div>
+  <button class="stats-reset-btn" id="resetBtn" onclick="showResetModal()">🗑️ Xoá dữ liệu thống kê</button>
+</div>
 
-        function updateStatistics() {
-            let total = DICT_DATA.length;
-            let learned = 0;
-            let notLearned = 0;
-            let review = 0;
+<div class="panel" id="panelAbout">
+  <div class="about-card">
+    <h3 id="aboutTitle">📱 App hỗ trợ học từ vựng</h3>
+    <p id="aboutDesc">Ứng dụng học từ vựng chuyên ngành gia công dập kim loại (金属プレス加工), tiếng Việt — tiếng Nhật. Gồm 181 thuật ngữ có ảnh minh hoạ kỹ thuật.</p>
+  </div>
+  <div class="about-card">
+    <h3 id="aboutHow">💡 Cách dùng</h3>
+    <ul id="aboutList">
+      <li><b>🃏 Flashcard:</b> Lật thẻ, đánh giá mức độ thuộc bài</li>
+      <li><b>📝 Kiểm tra:</b> Trắc nghiệm 4 đáp án hoặc nối từ</li>
+      <li><b>📊 Thống kê:</b> Theo dõi tiến độ học tập độc lập cho Flashcard và Kiểm tra</li>
+      <li><b>🔊 Phát âm:</b> Bấm nút loa để nghe tiếng Nhật</li>
+      <li><b>🧠 Ôn tập thông minh:</b> App tự ưu tiên từ hay sai</li>
+    </ul>
+  </div>
+  <div class="about-card">
+    <h3 id="aboutSave">📱 Lưu vào màn hình điện thoại</h3>
+    <p id="aboutIOS"><b>iPhone:</b> Bấm nút chia sẻ → "Thêm vào Màn hình chính"</p>
+    <p id="aboutAND" style="margin-top:6px"><b>Android:</b> Bấm menu ⋮ → "Thêm vào màn hình chính"</p>
+  </div>
+</div>
 
-            DICT_DATA.forEach(word => {
-                const state = userProgress[word.id].status;
-                if (state === 'learned') learned++;
-                else if (state === 'review') review++;
-                else notLearned++;
-            });
+<div class="bottom-nav">
+  <div class="nav-btn active" id="nav-flash" onclick="setMode('flash')"><span class="nav-icon">🃏</span><span id="navFlash">Flashcard</span></div>
+  <div class="nav-btn" id="nav-quiz" onclick="setMode('quiz')"><span class="nav-icon">📝</span><span id="navQuiz">Kiểm tra</span></div>
+  <div class="nav-btn" id="nav-stats" onclick="setMode('stats')"><span class="nav-icon">📊</span><span id="navStats">Thống kê</span></div>
+  <div class="nav-btn" id="nav-about" onclick="setMode('about')"><span class="nav-icon">ℹ️</span><span id="navAbout">Về App</span></div>
+</div>
 
-            document.getElementById('stat-total').textContent = total;
-            document.getElementById('stat-learned').textContent = learned;
-            document.getElementById('stat-not-learned').textContent = notLearned;
-            document.getElementById('stat-review').textContent = review;
+<script>
+const WORDS = [
+  {id:1,viet:"Bavia",kanji:"バリ",hira:"ばり",note:"Ba via / xỉa kim loại sau dập",group:"⚙️ Gia công"},
+  {id:2,viet:"Bàn ren",kanji:"ダイ",hira:"だい",note:"Khuôn dập (die)",group:"🔩 Khuôn"},
+  {id:3,viet:"Bàn ren R",kanji:"ダイ R",hira:"だいあーる",note:"Bàn ren có góc bo R",group:"🔩 Khuôn"},
+  {id:4,viet:"Bán kính (R)",kanji:"アール（R）",hira:"あーる",note:"Bán kính góc bo",group:"📋 Quy trình"},
+  {id:5,viet:"Bán kính uốn",kanji:"曲げ半径",hira:"まげはんけい",note:"Bán kính khi uốn cong vật liệu",group:"⚙️ Gia công"},
+  {id:6,viet:"Bánh đà",kanji:"フライホィール",hira:"ふらいほぃーる",note:"Flywheel — bánh đà của máy dập",group:"🔧 Máy móc"},
+  {id:7,viet:"Bước tiến",kanji:"送りピッチ",hira:"おくりぴっち",note:"Feed pitch — bước tiến nguyên liệu",group:"⚙️ Gia công"},
+  {id:8,viet:"Bạt mép",kanji:"チッピング",hira:"ちっぴんぐ",note:"Chipping — mẻ, bạt góc cạnh khuôn",group:"⚙️ Gia công"},
+  {id:9,viet:"Bật lò xo",kanji:"スプリングバック",hira:"すぷりんぐばっく",note:"Springback — đàn hồi lại sau khi uốn",group:"⚙️ Gia công"},
+  {id:10,viet:"Bật ra",kanji:"ノックアウト",hira:"ノックアウト",note:"Knockout — cơ cấu đẩy sản phẩm ra khỏi khuôn",group:"🔩 Khuôn"},
+  {id:11,viet:"Bề mặt bị hư hại",kanji:"破断面",hira:"はだんめん",note:"Fractured surface — bề mặt gãy vỡ sau cắt",group:"⚙️ Gia công"},
+  {id:12,viet:"Bề mặt cắt nghiền",kanji:"せん断面",hira:"せんだんめん",note:"Shear surface — mặt cắt do lực cắt nghiền",group:"⚙️ Gia công"},
+  {id:13,viet:"Bề mặt trục quay",kanji:"スピンドル面",hira:"すぴんどるめん",note:"Spindle face — mặt trục chính máy đo",group:"📏 Đo lường"},
+  {id:14,viet:"Bệ đỡ",kanji:"ベッド",hira:"べっど",note:"Bed — bệ máy dập (phần đế cố định)",group:"🔧 Máy móc"},
+  {id:15,viet:"Bộ bàn ren",kanji:"ダイセット",hira:"だいせっと",note:"Die set — bộ khuôn hoàn chỉnh",group:"🔩 Khuôn"},
+  {id:16,viet:"Bộ nạp có thiết bị kẹp (Gripper feeder)",kanji:"グリッパーフィーダ",hira:"ぐriっぱーふぃーだ",note:"Gripper feeder — cơ cấu nạp liệu có kẹp",group:"🔧 Máy móc"},
+  {id:17,viet:"Chiều cao bàn ren",kanji:"ダイハイト",hira:"だいはいと",note:"Die height — chiều cao bộ khuôn",group:"🔩 Khuôn"},
+  {id:18,viet:"Chiều dài chu kỳ",kanji:"ストローク長さ",hira:"すとろーくながさ",note:"Stroke length — chiều dài hành trình máy",group:"🔧 Máy móc"},
+  {id:19,viet:"Chiều dài tiến",kanji:"送り長さ",hira:"おくりながさ",note:"Feed length — chiều dài bước nạp liệu",group:"⚙️ Gia công"},
+  {id:20,viet:"Chu kỳ",kanji:"ストローク",hira:"すとろーく",note:"Stroke — một chu kỳ hành trình của máy",group:"🔧 Máy móc"},
+  {id:21,viet:"Chuyển động đơn (single-action)",kanji:"単動（シングルアクション）",hira:"たんどう",note:"Single action — chuyển động một chiều",group:"🔧 Máy móc"},
+  {id:22,viet:"Chuôi",kanji:"シャンク",hira:"しゃんく",note:"Shank — chuôi / đầu gắn khuôn lên máy",group:"🔩 Khuôn"},
+  {id:23,viet:"Chốt quay",kanji:"クランクピン",hira:"くらんくぴん",note:"Crank pin — chốt của trục khuỷu",group:"🔧 Máy móc"},
+  {id:24,viet:"Công suất",kanji:"能力",hira:"のうりょく",note:"Capacity — công suất / năng lực máy",group:"🔧 Máy móc"},
+  {id:25,viet:"Công suất gia áp",kanji:"加圧能力",hira:"かあつのうりょく",note:"Pressing capacity — công suất ép tối đa",group:"🔧 Máy móc"},
+  {id:26,viet:"Công tắc chuyển đổi",kanji:"切替えスイッチ",hira:"きりかえすいっち",note:"Selector switch — công tắc chọn chế độ hoạt động",group:"🛡️ An toàn"},
+  {id:27,viet:"Công đoạn",kanji:"工程",hira:"こうてい",note:"Process — công đoạn sản xuất",group:"📋 Quy trình"},
+  {id:28,viet:"Cơ chế khu động ổ trượt",kanji:"スライド駆動機構",hira:"すらいどくどうきこう",note:"Slide drive mechanism",group:"🔧 Máy móc"},
+  {id:29,viet:"Cơ chế điều chỉnh ổ trượt",kanji:"スライド調節機構",hira:"すらいどちょうせつきこう",note:"Slide adjustment mechanism",group:"🔧 Máy móc"},
+  {id:30,viet:"Cơ cấu cấp liệu kiểu con lăn",kanji:"ロールフィーダ",hira:"ろーるふぃーだ",note:"Roll feeder — cấp liệu bằng con lăn",group:"🔧 Máy móc"},
+  {id:31,viet:"Cơ cấu khuỷu (toggle)",kanji:"トッグル機構",hira:"とっぐるきこう",note:"Toggle mechanism — cơ cấu đòn khuỷu",group:"🔧 Máy móc"},
+  {id:32,viet:"Cơ cấu điểm dừng hành trình đơn",kanji:"一行程一停止機構",hira:"いちhこうていいちていしきこう",note:"Single stroke stop mechanism",group:"🛡️ An toàn"},
+  {id:33,viet:"Cấu tạo bố trí ngược",kanji:"逆配置の構造",hira:"ぎゃくはいchのこうぞう",note:"Inverted die structure — kết cấu khuôn đảo ngược",group:"🔩 Khuôn"},
+  {id:34,viet:"Cắt",kanji:"切断",hira:"せつだん",note:"Cutting — cắt đứt vật liệu",group:"⚙️ Gia công"},
+  {id:35,viet:"Cắt mép",kanji:"縁切り",hira:"ふちきり",note:"Edge cutting — cắt mép / viền sản phẩm",group:"⚙️ Gia công"},
+  {id:36,viet:"Cữ chặn có bánh cóc",kanji:"ラチェットストップ",hira:"らちぇっとすとっぷ",note:"Ratchet stop — cữ chặn dạng bánh cóc",group:"🔩 Khuôn"},
+  {id:37,viet:"Dao trên",kanji:"上刃",hira:"うわば",note:"Upper blade — dao cắt phía trên",group:"🔩 Khuôn"},
+  {id:38,viet:"Dập",kanji:"外形抜き",hira:"がいけいぬき",note:"Blanking — dập cắt tạo hình ngoài",group:"⚙️ Gia công"},
+  {id:39,viet:"Dập cắt phôi",kanji:"ブランク",hira:"ぶらんく",note:"Blank — phôi sau khi dập cắt từ tấm",group:"⚙️ Gia công"},
+  {id:40,viet:"Dập nổi",kanji:"エンボス",hira:"えんぼす",note:"Emboss — dập nổi hoa văn / chữ",group:"⚙️ Gia công"},
+  {id:41,viet:"Dừng gấp",kanji:"急停止",hira:"きゅうていし",note:"Quick stop — dừng nhanh khẩn cấp",group:"🛡️ An toàn"},
+  {id:42,viet:"Dừng khẩn cấp",kanji:"非常停止",hira:"ひじょうていし",note:"Emergency stop (E-stop) — nút dừng khẩn cấp",group:"🛡️ An toàn"},
+  {id:43,viet:"Dừng điểm chết trên",kanji:"上死点停止",hira:"じょうしてんていし",note:"Top dead center stop — dừng tại vị trí cao nhất",group:"🛡️ An toàn"},
+  {id:44,viet:"Dừng động cơ",kanji:"モータ停止",hira:"もーたていし",note:"Motor stop — lệnh dừng động cơ",group:"🛡️ An toàn"},
+  {id:45,viet:"Gia công cắt nghiền",kanji:"せん断加工",hira:"せんだんかこう",note:"Shear cutting process — gia công cắt bằng lực cắt nghiền",group:"⚙️ Gia công"},
+  {id:46,viet:"Gia công dập",kanji:"プレス加工",hira:"ぷれすかこう",note:"Press working — gia công dập tổng quát",group:"⚙️ Gia công"},
+  {id:47,viet:"Gia công làm nhám",kanji:"絞り加工",hira:"しぼりかこう",note:"Drawing process — gia công vuốt sâu (drawing)",group:"⚙️ Gia công"},
+  {id:48,viet:"Gia công làm nhám hình dạng khác thường",kanji:"異形絞り加工",hira:"いけいしぼりかこう",note:"Irregular shape drawing — vuốt sâu hình dạng đặc biệt",group:"⚙️ Gia công"},
+  {id:49,viet:"Gia công làm nhám khối vuông",kanji:"角筒絞り加工",hira:"かくとうしぼりかこう",note:"Square tube drawing — vuốt ống vuông",group:"⚙️ Gia công"},
+  {id:50,viet:"Gia công làm nhám sâu",kanji:"深絞り加工",hira:"ふかしぼりかこう",note:"Deep drawing — vuốt sâu để tạo hình khối trụ",group:"⚙️ Gia công"},
+  {id:51,viet:"Gia công mép co ngót",kanji:"ちぢみフランジ加工",hira:"ちぢにふらんじかこう",note:"Shrink flange processing — gia công mép bị co lại",group:"⚙️ Gia công"},
+  {id:52,viet:"Gia công phức hợp",kanji:"複合加工",hira:"ふくごうかこう",note:"Compound processing — nhiều nguyên công trên một bộ khuôn",group:"⚙️ Gia công"},
+  {id:53,viet:"Gia công sơ cấp",kanji:"一次加工",hira:"いちじかこう",note:"Primary processing — gia công bước đầu tiên",group:"⚙️ Gia công"},
+  {id:54,viet:"Gia công tạo hình",kanji:"成形加工",hira:"せいけいかこう",note:"Forming process — tạo hình dạng cuối cùng",group:"⚙️ Gia công"},
+  {id:55,viet:"Gia công uốn",kanji:"曲げ加工",hira:"まげかこう",note:"Bending process — gia công uốn cong tấm",group:"⚙️ Gia công"},
+  {id:56,viet:"Gia công uốn hình chữ L",kanji:"L曲げ加工",hira:"えるまげかこう",note:"L-bend — uốn tạo hình chữ L (góc 90°)",group:"⚙️ Gia công"},
+  {id:57,viet:"Gia công uốn hình chữ V",kanji:"V曲げ加工",hira:"ぶいまげかこう",note:"V-bend — uốn tạo hình chữ V",group:"⚙️ Gia công"},
+  {id:58,viet:"Gia công vuốt thúc",kanji:"円筒絞り加工",hira:"えんとうしぼりかこう",note:"Cylindrical drawing — vuốt tạo hình ống tròn",group:"⚙️ Gia công"},
+  {id:59,viet:"Gia công đột dấu",kanji:"打抜き加工",hira:"うちぬきかこう",note:"Blanking / punching process",group:"⚙️ Gia công"},
+  {id:60,viet:"Gia công đục lỗ",kanji:"穴抜き加工",hira:"あなぬきかこう",note:"Hole punching — đột lỗ trên tấm kim loại",group:"⚙️ Gia công"},
+  {id:61,viet:"Giày bảo hộ",kanji:"安全靴",hira:"あんぜんぐつ",note:"Safety shoes — giày bảo hộ lao động bắt buộc",group:"🛡️ An toàn"},
+  {id:62,viet:"Hai điểm (loại 2 điểm)",kanji:"ツーポイント（2点型）",hira:"つーぽいんと",note:"Two-point type press — máy dập 2 điểm tựa",group:"🔧 Máy móc"},
+  {id:63,viet:"Hành trình",kanji:"行程",hira:"こうてい",note:"Stroke — hành trình của đầu trượt máy dập",group:"🔧 Máy móc"},
+  {id:64,viet:"Hớt bavia",kanji:"バーリング",hira:"ばーりんぐ",note:"Burring — tạo gờ quanh lỗ (burring)",group:"⚙️ Gia công"},
+  {id:65,viet:"Khe hở",kanji:"クリアランス",hira:"くりあらんす",note:"Clearance — khe hở giữa chày và cối khuôn",group:"🔩 Khuôn"},
+  {id:66,viet:"Khung chữ C",kanji:"C形フレーム",hira:"しーがたふれーむ",note:"C-frame — khung thân máy dạng chữ C",group:"🔧 Máy móc"},
+  {id:67,viet:"Khung cạnh thẳng",kanji:"ストレートサイド型フレーム",hira:"すとれーtoさいどがたふれーむ",note:"Straight-side frame — khung thân máy cạnh thẳng",group:"🔧 Máy móc"},
+  {id:68,viet:"Khuôn có gắn bàn ren",kanji:"ダイセット付き金型",hira:"だいせっとつきかながた",note:"Die with die set — khuôn đã gắn sẵn die set",group:"🔩 Khuôn"},
+  {id:69,viet:"Khuôn dập kim loại",kanji:"プレス金型",hira:"ぷれすかながた",note:"Press die — khuôn dập kim loại",group:"🔩 Khuôn"},
+  {id:70,viet:"Khuôn dập tổng hợp",kanji:"総抜き型",hira:"そうぬきがた",note:"Compound die — khuôn thực hiện nhiều nguyên công cùng lúc",group:"🔩 Khuôn"},
+  {id:71,viet:"Khuôn đẩy liên tiếp",kanji:"順送り型",hira:"じゅんおくりがた",note:"Progressive die — khuôn liên tục nhiều trạm",group:"🔩 Khuôn"},
+  {id:72,viet:"Khuôn đục lỗ và làm nhám",kanji:"抜き絞り型",hira:"ぬきしぼりがた",note:"Pierce and draw die",group:"🔩 Khuôn"},
+  {id:73,viet:"Không có tay quay",kanji:"クランクレス",hira:"くらんくれす",note:"Crankless press — máy không dùng tay quay cơ học",group:"🔧 Máy móc"},
+  {id:74,viet:"Kiểm tra bên ngoài",kanji:"外観検査",hira:"がいかんけんさ",note:"Visual inspection — kiểm tra ngoại quan sản phẩm",group:"📋 Quy trình"},
+  {id:75,viet:"Kiểm tra hằng ngày",kanji:"日常点検",hira:"にちじょうてんけん",note:"Daily inspection — kiểm tra bảo dưỡng hàng ngày",group:"📋 Quy trình"},
+  {id:76,viet:"Kiểu phức hợp",kanji:"複合型",hira:"ふくごうがた",note:"Compound type die",group:"🔩 Khuôn"},
+  {id:77,viet:"Kích thước quy định",kanji:"定尺材",hira:"ていじゃくざい",note:"Standard size material — vật liệu kích thước tiêu chuẩn",group:"🔨 Vật liệu"},
+  {id:78,viet:"Loại 1 điểm",kanji:"1点型",hira:"いってんがた",note:"Single-point type press — máy dập 1 điểm tựa",group:"🔧 Máy móc"},
+  {id:79,viet:"Loại mở",kanji:"オープン型",hira:"おーぷんがた",note:"Open type die — khuôn dạng mở",group:"🔩 Khuôn"},
+  {id:80,viet:"Làm nhám",kanji:"絞り",hira:"しぼり",note:"Drawing — gia công vuốt sâu",group:"⚙️ Gia công"},
+  {id:81,viet:"Làm nhám ban đầu",kanji:"初絞り",hira:"はつしぼり",note:"First draw — vuốt sâu lần đầu",group:"⚙️ Gia công"},
+  {id:82,viet:"Làm nhám lại",kanji:"再絞り",hira:"さいしぼり",note:"Redraw — vuốt sâu lần thứ hai trở đi",group:"⚙️ Gia công"},
+  {id:83,viet:"Làm nhám ngược",kanji:"逆絞り",hira:"ぎゃくしぼり",note:"Reverse draw — vuốt ngược chiều",group:"⚙️ Gia công"},
+  {id:84,viet:"Lẫn dị vật",kanji:"異物混入",hira:"いぶつこんにゅう",note:"Foreign material contamination — lẫn tạp chất vào sản phẩm",group:"📋 Quy trình"},
+  {id:85,viet:"Lực gia công",kanji:"加工力",hira:"かこうりょく",note:"Processing force — lực cần thiết để thực hiện gia công",group:"🔧 Máy móc"},
+  {id:86,viet:"Lực gia áp",kanji:"加圧力",hira:"かあつりょく",note:"Pressing force — lực ép thực tế",group:"🔧 Máy móc"},
+  {id:87,viet:"Lực tăng áp phát sinh",kanji:"発生加圧力",hira:"はっせいかあつりょく",note:"Generated pressing force — lực ép phát sinh trong quá trình",group:"🔧 Máy móc"},
+  {id:88,viet:"Lực ép tấm",kanji:"板押さえ力",hira:"いたおさえりょく",note:"Blank holding force — lực ép giữ tấm phôi",group:"🔩 Khuôn"},
+  {id:89,viet:"Miếng đệm",kanji:"パッド",hira:"ぱっど",note:"Pad — miếng đệm trong khuôn dập",group:"🔩 Khuôn"},
+  {id:90,viet:"Miếng đệm khuôn máy ép thủy lực",kanji:"油圧ダイクッション",hira:"ゆあつだいくっしょん",note:"Hydraulic die cushion — đệm thủy lực cho khuôn",group:"🔩 Khuôn"},
+  {id:91,viet:"Mài lại",kanji:"再研削",hira:"さいけんさく",note:"Re-grinding — mài lại bề mặt khuôn đã mòn",group:"📋 Quy trình"},
+  {id:92,viet:"Mài nhẵn góc",kanji:"角絞り",hira:"かどしぼり",note:"Corner drawing — gia công vuốt góc",group:"⚙️ Gia công"},
+  {id:93,viet:"Máy cắt mảnh rời",kanji:"スクラップカッター",hira:"すくらっぷかったー",note:"Scrap cutter — máy cắt nhỏ phế liệu",group:"🔧 Máy móc"},
+  {id:94,viet:"Máy dập",kanji:"プレス機械",hira:"ぷれすきかい",note:"Press machine — máy dập kim loại",group:"🔧 Máy móc"},
+  {id:95,viet:"Máy xổ cuộn",kanji:"アンコイラー",hira:"あんこいらー",note:"Uncoiler — thiết bị xả cuộn nguyên liệu",group:"🔧 Máy móc"},
+  {id:96,viet:"Máy ép kiểu trục khuỷu",kanji:"ナックルプレス",hira:"なっくるぷれす",note:"Knuckle press — máy ép kiểu khớp khuỷu",group:"🔧 Máy móc"},
+  {id:97,viet:"Mép",kanji:"フランジ",hira:"ふらんじ",note:"Flange — mép / vành của sản phẩm",group:"⚙️ Gia công"},
+  {id:98,viet:"Mũi đục",kanji:"パンチ",hira:"ぱんち",note:"Punch — chày đục (phần trên của khuôn)",group:"🔩 Khuôn"},
+  {id:99,viet:"Mẫu giới hạn",kanji:"限度見本",hira:"げんどみほん",note:"Limit sample — mẫu chuẩn xác định giới hạn chấp nhận",group:"📋 Quy trình"},
+  {id:100,viet:"Mặt cữ chặn",kanji:"アンビル面",hira:"アンビルめん",note:"Anvil face — mặt đe của dụng cụ đo",group:"📏 Đo lường"},
+  {id:101,viet:"Ngăn khởi động lại",kanji:"再起動防止",hira:"さいきどうぼうし",note:"Restart prevention — chức năng chống khởi động lại bất ngờ",group:"🛡️ An toàn"},
+  {id:102,viet:"Nhấn kết nối",kanji:"リンクプレス",hira:"りんくぷれす",note:"Link press — máy ép kiểu cơ cấu link",group:"🔧 Máy móc"},
+  {id:103,viet:"Nâng bọt nổi",kanji:"かす上がり",hira:"かすあがり",note:"Scrap rising — phế liệu nổi lên bề mặt khuôn",group:"📋 Quy trình"},
+  {id:104,viet:"Nút khởi động",kanji:"起動ボタン",hira:"きどうぼたん",note:"Start button — nút khởi động máy",group:"🛡️ An toàn"},
+  {id:105,viet:"Phân loại hoàn thiện bề mặt",kanji:"表面仕上げ区分",hira:"ひょうめんしあげくぶん",note:"Surface finish classification — phân loại độ hoàn thiện bề mặt",group:"📋 Quy trình"},
+  {id:106,viet:"Phân tách",kanji:"分断",hira:"ぶんだん",note:"Separation / parting — tách rời các phần",group:"⚙️ Gia công"},
+  {id:107,viet:"Pít tông",kanji:"ラム",hira:"らむ",note:"Ram — pít tông / đầu trượt máy ép thủy lực",group:"🔧 Máy móc"},
+  {id:108,viet:"Quy trình an toàn là trên hết",kanji:"安全一工程",hira:"あんぜんいちこうてい",note:"Safety first — nguyên tắc an toàn ưu tiên hàng đầu",group:"🛡️ An toàn"},
+  {id:109,viet:"Sắp xếp dập cắt phôi",kanji:"ブランクレイアウト",hira:"ブランクレイアウト",note:"Blank layout — bố trí phôi trên tấm để tối ưu nguyên liệu",group:"📋 Quy trình"},
+  {id:110,viet:"Sắp xếp trên băng chuyền",kanji:"ストリップレイアウト",hira:"ストリップレイアウト",note:"Strip layout — bố trí gia công trên dải nguyên liệu",group:"📋 Quy trình"},
+  {id:111,viet:"Số chu kỳ mỗi phút",kanji:"毎分ストローク数",hira:"まいふんすとろーくすう",note:"SPM — Strokes Per Minute, số hành trình mỗi phút",group:"🔧 Máy móc"},
+  {id:112,viet:"Sự cố",kanji:"異常事態",hira:"いじょうじたい",note:"Abnormal situation / incident — tình huống bất thường",group:"🛡️ An toàn"},
+  {id:113,viet:"Tay quay",kanji:"クランクプレス",hira:"くらんくぷれす",note:"Crank press — máy dập kiểu trục khuỷu",group:"🔧 Máy móc"},
+  {id:114,viet:"Tay quay kép",kanji:"ダブルクランク",hira:"だぶるくらんく",note:"Double crank — trục khuỷu đôi",group:"🔧 Máy móc"},
+  {id:115,viet:"Thang cặp (Vernier)",kanji:"バーニヤ目盛",hira:"バーニヤめもり",note:"Vernier scale — thang đo phụ của thước cặp",group:"📏 Đo lường"},
+  {id:116,viet:"Thanh dẫn nguyên vật liệu",kanji:"ストックガイド",hira:"すとっくがいど",note:"Stock guide — thanh dẫn hướng nguyên liệu vào khuôn",group:"🔩 Khuôn"},
+  {id:117,viet:"Thanh truyền",kanji:"コネクチングロッド",hira:"コネクチングロッド",note:"Connecting rod — thanh truyền của cơ cấu tay quay",group:"🔧 Máy móc"},
+  {id:118,viet:"Thao tác",kanji:"作業",hira:"さぎょう",note:"Operation / work — thao tác vận hành",group:"📋 Quy trình"},
+  {id:119,viet:"Thao tác dập",kanji:"プレス作業",hira:"ぷれすさぎょう",note:"Press operation — thao tác vận hành máy dập",group:"📋 Quy trình"},
+  {id:120,viet:"Thiết bị an toàn",kanji:"安全装置",hira:"あんぜんそうち",note:"Safety device — thiết bị bảo vệ an toàn",group:"🛡️ An toàn"},
+  {id:121,viet:"Thiết bị an toàn kiểu thao tác bằng hai tay",kanji:"両手操作式安全装置",hira:"りょうてそうさしきあんぜんそうち",note:"Two-hand safety device — bắt buộc dùng cả hai tay mới kích hoạt",group:"🛡️ An toàn"},
+  {id:122,viet:"Thiết bị an toàn loại tia sáng",kanji:"光線式安全装置",hira:"こうせんしきあんぜんそうち",note:"Light curtain safety device — màn chắn ánh sáng an toàn",group:"🛡️ An toàn"},
+  {id:123,viet:"Thiết bị an toàn loại tấm chắn",kanji:"ガード式安全装置",hira:"ガードしきあんぜんそうち",note:"Guard type safety device — tấm chắn bảo vệ vùng nguy hiểm",group:"🛡️ An toàn"},
+  {id:124,viet:"Thiết bị bảo vệ tai",kanji:"イヤーマフ",hira:"イヤーマフ",note:"Ear muff — chụp bịt tai chống ồn",group:"🛡️ An toàn"},
+  {id:125,viet:"Thiết bị canh thẳng",kanji:"レベラー",hira:"レベラー",note:"Leveler — máy nắn thẳng cuộn tấm",group:"🔧 Máy móc"},
+  {id:126,viet:"Thiết bị chất lên",kanji:"積み込み装置",hira:"つみこみそうち",note:"Loading device — thiết bị nạp xếp sản phẩm",group:"🔧 Máy móc"},
+  {id:127,viet:"Thiết bị chỉnh thẳng hàng",kanji:"矯正装置",hira:"きょうせいそうち",note:"Straightening device — thiết bị chỉnh thẳng nguyên liệu",group:"🔧 Máy móc"},
+  {id:128,viet:"Thiết bị cân bằng đối trọng",kanji:"カウンタバランサ",hira:"カウンタバランサ",note:"Counter balancer — thiết bị cân bằng trọng lượng",group:"🔧 Máy móc"},
+  {id:129,viet:"Thiết bị làm gấp khúc",kanji:"しわ押さえ",hira:"しわおさえ",note:"Wrinkle holder / blank holder — thiết bị giữ tấm phôi khi vuốt",group:"🔩 Khuôn"},
+  {id:130,viet:"Thiết bị tháo khuôn",kanji:"ストリッパ",hira:"ストリッパ",note:"Stripper — thiết bị tháo sản phẩm khỏi chày",group:"🔩 Khuôn"},
+  {id:131,viet:"Thiết bị tháo khuôn có thể di chuyển",kanji:"可動ストリッパ",hira:"かどうストリッパ",note:"Movable stripper — stripper có thể di chuyển linh hoạt",group:"🔩 Khuôn"},
+  {id:132,viet:"Thiết bị tháo khuôn cố định",kanji:"固定ストリッパ",hira:"こていストリッパ",note:"Fixed stripper — stripper cố định",group:"🔩 Khuôn"},
+  {id:133,viet:"Thiết bị tiến",kanji:"送り装置",hira:"おくりそうち",note:"Feed device — thiết bị nạp / tiến nguyên liệu",group:"🔧 Máy móc"},
+  {id:134,viet:"Thiết bị tự động hóa",kanji:"自動化装置",hira:"じどうかそうち",note:"Automation device — thiết bị tự động hóa dây chuyền",group:"🔧 Máy móc"},
+  {id:135,viet:"Thép tấm cán nguội",kanji:"冷間圧延鋼板",hira:"れいかんあつえんこうはん",note:"Cold-rolled steel sheet (SPCC) — thép cán nguội",group:"🔨 Vật liệu"},
+  {id:136,viet:"Thép tấm cán nóng",kanji:"熱間圧延鋼板",hira:"ねっかんあつえんこうはん",note:"Hot-rolled steel sheet (SPHC) — thép cán nóng",group:"🔨 Vật liệu"},
+  {id:137,viet:"Thước chia vạch",kanji:"本尺目盛",hira:"ほんじゃくめもり",note:"Main scale — vạch chia chính trên thước cặp",group:"📏 Đo lường"},
+  {id:138,viet:"Thước cặp",kanji:"ノギス",hira:"のぎす",note:"Caliper (Vernier caliper) — thước cặp đo kích thước",group:"📏 Đo lường"},
+  {id:139,viet:"Trắc vi kế",kanji:"マイクロメータ",hira:"まいくろめーた",note:"Micrometer — trắc vi kế đo chính xác cao",group:"📏 Đo lường"},
+  {id:140,viet:"Trục quay",kanji:"クランク軸",hira:"クランクじく",note:"Crankshaft — trục khuỷu chính của máy dập",group:"🔧 Máy móc"},
+  {id:141,viet:"Trục quay đơn",kanji:"シングルクランク",hira:"シングルクランク",note:"Single crank — trục khuỷu đơn",group:"🔧 Máy móc"},
+  {id:142,viet:"Tấm bàn ren",kanji:"ダイプレート",hira:"ダイプレート",note:"Die plate — tấm khuôn (cối)",group:"🔩 Khuôn"},
+  {id:143,viet:"Tấm chỉnh xác bề mặt",kanji:"精密定盤",hira:"せいみつじょうばん",note:"Surface plate — bàn máp kiểm tra độ phẳng chính xác",group:"📏 Đo lường"},
+  {id:144,viet:"Tấm cắt",kanji:"切り板",hira:"きりいた",note:"Cutting plate — tấm dùng để cắt",group:"🔩 Khuôn"},
+  {id:145,viet:"Tấm lót",kanji:"ボルスタ",hira:"ボルスタ",note:"Bolster plate — tấm lót bàn máy dập",group:"🔧 Máy móc"},
+  {id:146,viet:"Tấm thép có sức căng cao",kanji:"高張力鋼版",hira:"こうちょうりょくこうばん",note:"High-tensile steel sheet — thép tấm cường độ cao",group:"🔨 Vật liệu"},
+  {id:147,viet:"Tấm thép xử lý bề mặt",kanji:"表面処理鋼板",hira:"ひょうめんしょりこうばん",note:"Surface-treated steel sheet — thép đã xử lý bề mặt (mạ kẽm...)",group:"🔨 Vật liệu"},
+  {id:148,viet:"Tấm đệm bịt kín",kanji:"パッキングプレート",hira:"パッキングプレート",note:"Packing plate — tấm đệm điều chỉnh / bịt kín",group:"🔩 Khuôn"},
+  {id:149,viet:"Tấm đục lỗ",kanji:"パンチプレート",hira:"パンチプレート",note:"Punch plate — tấm giữ chày đục (punch holder plate)",group:"🔩 Khuôn"},
+  {id:150,viet:"Uốn",kanji:"曲げ",hira:"まげ",note:"Bending — uốn cong tấm kim loại",group:"⚙️ Gia công"},
+  {id:151,viet:"Uốn cong",kanji:"カール曲げ",hira:"かーるまげ",note:"Curl bending — uốn tròn mép tấm",group:"⚙️ Gia công"},
+  {id:152,viet:"Uốn hình chữ L",kanji:"L曲げ",hira:"えるまげ",note:"L-bending — uốn tạo hình dạng chữ L",group:"⚙️ Gia công"},
+  {id:153,viet:"Uốn hình chữ U",kanji:"U曲げ",hira:"ゆーまげ",note:"U-bending — uốn tạo hình dạng chữ U",group:"⚙️ Gia công"},
+  {id:154,viet:"Uốn hình chữ V",kanji:"V曲げ",hira:"ぶいまげ",note:"V-bending — uốn tạo hình dạng chữ V",group:"⚙️ Gia công"},
+  {id:155,viet:"Uốn hình chữ Z",kanji:"Z曲げ",hira:"ぜっとまげ",note:"Z-bending — uốn tạo hình dạng chữ Z",group:"⚙️ Gia công"},
+  {id:156,viet:"Vát góc",kanji:"かえり",hira:"かえり",note:"Burr — gờ sắc / ba via hình thành sau quá trình cắt",group:"⚙️ Gia công"},
+  {id:157,viet:"Vòng quay",kanji:"クランク円",hira:"クランクえん",note:"Crank circle — đường tròn vẽ bởi trục khuỷu",group:"🔧 Máy móc"},
+  {id:158,viet:"Vận hành chậm",kanji:"寸動運転",hira:"すんどううんてん",note:"Inching operation — chạy từng bước nhỏ để điều chỉnh",group:"📋 Quy trình"},
+  {id:159,viet:"Vận hành liên tục",kanji:"連続運転",hira:"れんぞくうんてん",note:"Continuous operation — vận hành liên tục tự động",group:"📋 Quy trình"},
+  {id:160,viet:"Vận hành theo hành trình đơn",kanji:"一行程運転",hira:"いちこうていうんてん",note:"Single stroke operation — mỗi lần nhấn = một hành trình",group:"📋 Quy trình"},
+  {id:161,viet:"Vật liệu",kanji:"素材",hira:"そざい",note:"Material — nguyên vật liệu đầu vào",group:"🔨 Vật liệu"},
+  {id:162,viet:"Vật liệu cuộn",kanji:"コイル材",hira:"こいるざい",note:"Coil material — vật liệu dạng cuộn tròn",group:"🔨 Vật liệu"},
+  {id:163,viet:"Vật liệu dạng tấm",kanji:"薄板材",hira:"うすいたざい",note:"Sheet material — vật liệu tấm mỏng",group:"🔨 Vật liệu"},
+  {id:164,viet:"Vật liệu gia công",kanji:"被加工材",hira:"ひかこうざい",note:"Workpiece material — phôi / vật liệu đang được gia công",group:"🔨 Vật liệu"},
+  {id:165,viet:"Vật liệu gia công hiệu quả",kanji:"能力発生位置",hira:"のうりょくはっせいいち",note:"Effective force position — vị trí máy phát sinh lực tối đa",group:"🔧 Máy móc"},
+  {id:166,viet:"Xoắn",kanji:"カーリング",hira:"カーリング",note:"Curling — uốn tròn / xoắn mép tấm",group:"⚙️ Gia công"},
+  {id:167,viet:"Ép thuỷ lực",kanji:"油圧プレス",hira:"ゆあつぷれす",note:"Hydraulic press — máy ép thủy lực",group:"🔧 Máy móc"},
+  {id:168,viet:"Ép tấm",kanji:"板押さえ",hira:"いたおさえ",note:"Blank holder — ép giữ tấm phôi trong quá trình vuốt",group:"🔩 Khuôn"},
+  {id:169,viet:"Điểm chết dưới",kanji:"下死点",hira:"かしてん",note:"Bottom Dead Center (BDC) — vị trí thấp nhất của hành trình",group:"🔧 Máy móc"},
+  {id:170,viet:"Điểm chết trên",kanji:"上死点",hira:"じょうしてん",note:"Top Dead Center (TDC) — vị trí cao nhất của hành trình",group:"🔧 Máy móc"},
+  {id:171,viet:"Đường uốn",kanji:"曲げ線",hira:"まげせん",note:"Bend line — đường chuẩn để uốn trên phôi",group:"⚙️ Gia công"},
+  {id:172,viet:"Đặt vào ổ",kanji:"ネスト",hira:"ネスト",note:"Nesting — đặt phôi chính xác vào vị trí trong khuôn",group:"📋 Quy trình"},
+  {id:173,viet:"Đế bàn ren",kanji:"ダイホルダー",hira:"ダイホルダー",note:"Die holder — đế giữ khuôn (cối)",group:"🔩 Khuôn"},
+  {id:174,viet:"Đế dập cắt phôi",kanji:"ブランクホルダー",hira:"ブランクホルダー",note:"Blank holder — đế giữ phôi khi dập cắt",group:"🔩 Khuôn"},
+  {id:175,viet:"Đế đỡ đục lỗ",kanji:"パンチホルダー",hira:"パンチホルダー",note:"Punch holder — đế giữ chày đục",group:"🔩 Khuôn"},
+  {id:176,viet:"Đồng hồ đo chiều cao",kanji:"ハイトゲージ",hira:"ハイトゲージ",note:"Height gauge — đồng hồ đo chiều cao",group:"📏 Đo lường"},
+  {id:177,viet:"Đục lỗ",kanji:"穴抜き",hira:"あなぬき",note:"Hole punching / piercing — đột lỗ trên tấm",group:"⚙️ Gia công"},
+  {id:178,viet:"Đục thủng",kanji:"打痕（ダコン）",hira:"だこん",note:"Dent / punch mark — vết lõm do đột nhầm hoặc kẹt phế liệu",group:"📋 Quy trình"},
+  {id:179,viet:"Ống lồng",kanji:"シンブル",hira:"シンブル",note:"Thimble — ống lồng xoay của trắc vi kế",group:"📏 Đo lường"},
+  {id:180,viet:"Ổ trượt",kanji:"スライド",hira:"スライド",note:"Slide — đầu trượt / ram của máy dập",group:"🔧 Máy móc"},
+  {id:181,viet:"Ổ trượt dập",kanji:"プレススライド",hira:"プレススライド",note:"Press slide — ổ trượt chính của máy dập",group:"🔧 Máy móc"}
+];
 
-            let percent = total > 0 ? Math.round((learned / total) * 100) : 0;
-            document.getElementById('progress-percent').textContent = percent + "%";
-            document.getElementById('progress-fill').style.width = percent + "%";
-        }
+const IMGS = {}; 
 
-        function switchView(viewId, navBtn) {
-            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+// ===== NGÔN NGỮ =====
+let currentLang = localStorage.getItem('lang') || 'vn';
+let activeStatsTab = 'flash';
 
-            document.getElementById('view-' + viewId).classList.add('active');
-            if (navBtn) {
-                navBtn.classList.add('active');
-            } else {
-                const items = document.querySelectorAll('.nav-item');
-                if(viewId === 'flashcard') items[1].classList.add('active');
-                if(viewId === 'list') items[2].classList.add('active');
-            }
+const LANG = {
+  vn: {
+    navFlash:'Flashcard', navQuiz:'Kiểm tra', navStats:'Thống kê', navAbout:'Về App',
+    lblGroup:'Nhóm:', lblRemain:'Còn lại', lblKnow:'Thuộc', lblDontKnow:'Chưa thuộc',
+    lblQuestions:'Câu hỏi', lblCorrect:'Đúng', lblIncorrect:'Sai',
+    statsTitle:'📊 Thống kê học tập',
+    lblFlashStreak:'🔥 Ngày liên tiếp', lblFlashTotalCards:'🎴 Số thẻ đã lật',
+    lblFlashGood:'✅ Số từ đã thuộc', lblFlashBad:'❌ Từ chưa thuộc',
+    lblFlashRatioTitle:'🎯 Tỉ lệ thuộc bài (Flashcard)', lblFlashRatioGood:'Đã thuộc', lblFlashRatioBad:'Chưa thuộc',
+    lblFlashHistoryTitle:'📅 Lịch sử học Flashcard (7 ngày)',
+    lblQuizStreak:'🔥 Ngày liên tiếp', lblQuizTotal:'📚 Tổng số câu làm',
+    lblQuizCorrect:'✅ Trả lời đúng', lblQuizWrong:'❌ Trả lời sai',
+    lblQuizRatioTitle:'🎯 Tỉ lệ đúng (Kiểm tra)', lblQuizRatioGood:'Đúng', lblQuizRatioBad:'Sai',
+    lblQuizHistoryTitle:'📅 Lịch sử làm kiểm tra (7 ngày)',
+    lblWeakTitle:'⚠️ Từ cần ôn lại', lblWeakBadge:'hay sai nhất',
+    resetBtn:'🗑️ Xoá dữ liệu thống kê',
+    modalTitle:'Xác nhận xoá', modalMsg:'Toàn bộ dữ liệu thống kê sẽ bị xoá hoàn toàn. Bạn có chắc không?',
+    modalCancel:'Huỷ', modalConfirm:'Xoá',
+    today:'Hôm nay', noData:'Chưa có dữ liệu', weakTimes:'lần sai',
+    aboutTitle:'📱 App hỗ trợ học từ vựng',
+    aboutDesc:'Ứng dụng học từ vựng chuyên ngành gia công dập kim loại (金属プレス加工), tiếng Việt — tiếng Nhật. Gồm 181 thuật ngữ có ảnh minh hoạ kỹ thuật.',
+    aboutHow:'💡 Cách dùng', aboutSave:'📱 Lưu vào màn hình điện thoại',
+    aboutIOS:'<b>iPhone:</b> Bấm nút chia sẻ → "Thêm vào Màn hình chính"',
+    aboutAND:'<b>Android:</b> Bấm menu ⋮ → "Thêm vào màn hình chính"',
+    tapHint:'👆 Bấm vào thẻ để lật',
+    frontHint:'Bạn có nhớ từ này không?', backHint:'Đáp án',
+    flipHint:'Lật thẻ trước khi đánh giá',
+    btnWrong:'Chưa thuộc', btnGood:'Thuộc rồi',
+    doneXs:'Xuất sắc!', doneGood:'Tốt lắm!', doneNeed:'Cần ôn thêm!',
+    doneTxt:'Thuộc', doneTxt2:'từ', doneChua:'Chưa thuộc',
+    restartBtn:'🔄 Học lại',
+    mcCorrect:'✅ Chính xác!', mcWrong:'❌ Sai rồi — đáp án đúng đã được đánh dấu xanh',
+    mcNext:'Câu tiếp theo →',
+    matchTitle:'Nối từ tiếng Việt với chữ Nhật tương ứng',
+    matchLbl1:'🇻🇳 Tiếng Việt', matchLbl2:'🇯🇵 Tiếng Nhật',
+    matchDone:'🎉 Hoàn thành!', matchNext:'Tiếp theo →',
+    quizDoneXs:'Xuất sắc!', quizDoneGood:'Khá tốt!', quizDoneNeed:'Cần ôn thêm!',
+    quizDoneRight:'Đúng', quizDoneWrong:'Sai', quizDonePct:'Tỉ lệ đúng:',
+    quizRestart:'🔄 Làm lại',
+    qTypeMC:'🔤 Trắc nghiệm', qTypeMatch:'🔗 Nối từ',
+    emptyMsg:'Chưa có từ nào — hãy chọn nhóm khác',
+    alertTitle:'Cố gắng lên nào! 💪',
+    alertMsg:'Bạn đã bấm "Chưa thuộc" liên tiếp 10 lần rồi. Hãy bình tĩnh xem lại các từ và tập trung hơn nhé!',
+    alertBtn:'Tôi đã hiểu, học tiếp'
+  },
+  jp: {
+    navFlash:'フラッシュ', navQuiz:'テスト', navStats:'統計', navAbout:'アプリ情報',
+    lblGroup:'グループ:', lblRemain:'残り', lblKnow:'覚えた', lblDontKnow:'未定着',
+    lblQuestions:'問題数', lblCorrect:'正解', lblIncorrect:'不正解',
+    statsTitle:'📊 項目別統計',
+    lblFlashStreak:'🔥 連続日数', lblFlashTotalCards:'🎴 めくった枚数',
+    lblFlashGood:'✅ 覚えた単語数', lblFlashBad:'❌ 未定着の単語数',
+    lblFlashRatioTitle:'🎯 定着率 (フラッシュカード)', lblFlashRatioGood:'覚えた', lblFlashRatioBad:'未定着',
+    lblFlashHistoryTitle:'📅 フラッシュカード履歴 (直近7日間)',
+    lblQuizStreak:'🔥 連続日数', lblQuizTotal:'📚 総回答問題数',
+    lblQuizCorrect:'✅ 正解数', lblQuizWrong:'❌ 不正解数',
+    lblQuizRatioTitle:'🎯 正解率 (テスト)', lblQuizRatioGood:'正解', lblQuizRatioBad:'不正解',
+    lblQuizHistoryTitle:'📅 テスト履歴 (直近7日間)',
+    lblWeakTitle:'⚠️ 復習が必要な単語', lblWeakBadge:'最も間違えた',
+    resetBtn:'🗑️ 統計データを削除',
+    modalTitle:'削除の確認', modalMsg:'すべての統計データがリセットされます。よろしいですか？',
+    modalCancel:'キャンセル', modalConfirm:'削除',
+    today:'今日', noData:'データなし', weakTimes:'回不正解',
+    aboutTitle:'📱 語彙学習アプリ',
+    aboutDesc:'金属プレス加工の専門用語を学ぶアプリです。ベトナム語 và 日本語で181語を収録。',
+    aboutHow:'💡 使い方', aboutSave:'📱 ホーム画面に追加',
+    aboutIOS:'<b>iPhone:</b> 共有ボタン → 「ホーム画面に追加」',
+    aboutAND:'<b>Android:</b> メニュー ⋮ → 「ホーム画面に追加」',
+    tapHint:'👆 カードをタップして裏返す',
+    frontHint:'この単語を覚えていますか？', backHint:'答え',
+    flipHint:'評価する前にカードを裏返してください',
+    btnWrong:'未定着', btnGood:'覚えた',
+    doneXs:'素晴らしい！', doneGood:'よくできました！', doneNeed:'要復習！',
+    doneTxt:'習得', doneTxt2:'語', doneChua:'未定着',
+    restartBtn:'🔄 もう一度',
+    mcCorrect:'✅ 正解！', mcWrong:'❌ 不正解 — 正解が緑で示されています',
+    mcNext:'次の問題 →',
+    matchTitle:'ベトナム語と日本語を結びつけてください',
+    matchLbl1:'🇻🇳 ベトナム語', matchLbl2:'🇯🇵 日本語',
+    matchDone:'🎉 完了！', matchNext:'次へ →',
+    quizDoneXs:'素晴らしい！', quizDoneGood:'よくできました！', quizDoneNeed:'要復習！',
+    quizDoneRight:'正解', quizDoneWrong:'不正解', quizDonePct:'正解率:',
+    quizRestart:'🔄 もう一度',
+    qTypeMC:'🔤 四択問題', qTypeMatch:'🔗 マッチング',
+    emptyMsg:'単語がありません — 他のグループを選んでください',
+    alertTitle:'がんばってください！ 💪',
+    alertMsg:'10回連続で「未定着」が押されました。焦らずに単語をもう一度確認して、集中して進めましょう！',
+    alertBtn:'了解して学習を続ける'
+  }
+};
 
-            if (viewId === 'stats') updateStatistics();
-            if (viewId === 'list') renderWordList();
-            if (viewId === 'flashcard') initFlashcardSession();
-        }
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.getElementById('langVN').classList.toggle('active', lang==='vn');
+  document.getElementById('langJP').classList.toggle('active', lang==='jp');
+  const L = LANG[lang];
+  
+  // Navigation
+  document.getElementById('navFlash').textContent = L.navFlash;
+  document.getElementById('navQuiz').textContent = L.navQuiz;
+  document.getElementById('navStats').textContent = L.navStats;
+  document.getElementById('navAbout').textContent = L.navAbout;
+  
+  // Flash & Quiz Common Labels
+  document.getElementById('lblGroup').textContent = L.lblGroup;
+  document.getElementById('lblGroup2').textContent = L.lblGroup;
+  document.getElementById('lblRemain').textContent = L.lblRemain;
+  document.getElementById('lblKnow').textContent = L.lblKnow;
+  document.getElementById('lblDontKnow').textContent = L.lblDontKnow;
+  document.getElementById('lblQuestions').textContent = L.lblQuestions;
+  document.getElementById('lblCorrect').textContent = L.lblCorrect;
+  document.getElementById('lblIncorrect').textContent = L.lblIncorrect;
+  document.getElementById('qTypeBtn1').textContent = L.qTypeMC;
+  document.getElementById('qTypeBtn2').textContent = L.qTypeMatch;
+  
+  // Stats Panel Localized Labels
+  document.getElementById('statsTitle').textContent = L.statsTitle;
+  document.getElementById('lblFlashStreak').textContent = L.lblFlashStreak;
+  document.getElementById('lblFlashTotalCards').textContent = L.lblFlashTotalCards;
+  document.getElementById('lblFlashGood').textContent = L.lblFlashGood;
+  document.getElementById('lblFlashBad').textContent = L.lblFlashBad;
+  document.getElementById('lblFlashRatioTitle').textContent = L.lblFlashRatioTitle;
+  document.getElementById('lblFlashRatioGood').textContent = L.lblFlashRatioGood;
+  document.getElementById('lblFlashRatioBad').textContent = L.lblFlashRatioBad;
+  document.getElementById('lblFlashHistoryTitle').textContent = L.lblFlashHistoryTitle;
 
-        function initFlashcardSession() {
-            const mode = document.getElementById('study-mode').value;
-            const category = document.getElementById('study-category').value;
+  document.getElementById('lblQuizStreak').textContent = L.lblQuizStreak;
+  document.getElementById('lblQuizTotal').textContent = L.lblQuizTotal;
+  document.getElementById('lblQuizCorrect').textContent = L.lblQuizCorrect;
+  document.getElementById('lblQuizWrong').textContent = L.lblQuizWrong;
+  document.getElementById('lblQuizRatioTitle').textContent = L.lblQuizRatioTitle;
+  document.getElementById('lblQuizRatioGood').textContent = L.lblQuizRatioGood;
+  document.getElementById('lblQuizRatioBad').textContent = L.lblQuizRatioBad;
+  document.getElementById('lblQuizHistoryTitle').textContent = L.lblQuizHistoryTitle;
 
-            currentSessionWords = DICT_DATA.filter(word => {
-                if (category !== 'all' && word.cat !== category) return false;
+  document.getElementById('lblWeakTitle').childNodes[0].textContent = L.lblWeakTitle + ' ';
+  document.getElementById('lblWeakBadge').textContent = L.lblWeakBadge;
+  document.getElementById('resetBtn').textContent = L.resetBtn;
+  
+  // About Page
+  document.getElementById('aboutTitle').textContent = L.aboutTitle;
+  document.getElementById('aboutDesc').textContent = L.aboutDesc;
+  document.getElementById('aboutHow').textContent = L.aboutHow;
+  document.getElementById('aboutSave').textContent = L.aboutSave;
+  document.getElementById('aboutIOS').innerHTML = L.aboutIOS;
+  document.getElementById('aboutAND').innerHTML = L.aboutAND;
+  
+  const activePanel = document.querySelector('.panel.visible');
+  if (activePanel) {
+    if (activePanel.id==='panelFlash') renderFlashCard();
+    else if (activePanel.id==='panelQuiz') renderQuiz();
+    else if (activePanel.id==='panelStats') renderStats();
+  }
+}
 
-                const state = userProgress[word.id].status;
-                if (mode === 'review' && state !== 'review') return false;
-                if (mode === 'not-learned' && state !== 'not-learned') return false;
-                
-                return true;
-            });
+// ===== MODAL =====
+let _modalCallback = null;
+function showResetModal() {
+  const L = LANG[currentLang];
+  document.getElementById('modalTitle').textContent = L.modalTitle;
+  document.getElementById('modalMsg').textContent = L.modalMsg;
+  document.getElementById('modalCancel').textContent = L.modalCancel;
+  document.getElementById('modalConfirm').textContent = L.modalConfirm;
+  _modalCallback = () => {
+    localStorage.removeItem('learnStats');
+    closeModal();
+    renderStats();
+  };
+  document.getElementById('confirmModal').classList.add('visible');
+}
+document.getElementById('modalConfirm').onclick = () => { if(_modalCallback) _modalCallback(); };
+function closeModal() { document.getElementById('confirmModal').classList.remove('visible'); _modalCallback=null; }
+document.getElementById('confirmModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
 
-            // Thuật toán xáo trộn ngẫu nhiên bộ từ học
-            currentSessionWords.sort(() => Math.random() - 0.5);
-            currentCardIndex = 0;
+// ===== NAVIGATION PANELS =====
+function setMode(m) {
+  document.querySelectorAll('.nav-btn').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('visible'));
+  const navEl = document.getElementById('nav-'+m);
+  if(navEl) navEl.classList.add('active');
+  const panelEl = document.getElementById('panel' + m.charAt(0).toUpperCase() + m.slice(1));
+  if(panelEl) panelEl.classList.add('visible');
+  if(m==='flash') initFlash();
+  else if(m==='quiz') initQuiz();
+  else if(m==='stats') renderStats();
+}
 
-            renderFlashcard();
-        }
+function switchStatsTab(tab) {
+  activeStatsTab = tab;
+  document.getElementById('tabFlashBtn').classList.toggle('active', tab==='flash');
+  document.getElementById('tabQuizBtn').classList.toggle('active', tab==='quiz');
+  document.getElementById('statsSubFlash').classList.toggle('visible', tab==='flash');
+  document.getElementById('statsSubQuiz').classList.toggle('visible', tab==='quiz');
+  renderStats();
+}
 
-        function renderFlashcard() {
-            const container = document.getElementById('card-area');
-            
-            if (currentSessionWords.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">🎉</div>
-                        <h3>Mục này đang trống!</h3>
-                        <p style="font-size:0.85rem; margin-top:6px;">Không tìm thấy từ vựng nào khớp với bộ lọc. Hãy chuyển chế độ học hoặc đổi chủ đề khác.</p>
-                    </div>`;
-                return;
-            }
+// ===== PHÁT ÂM NATIVE =====
+function speak(text) {
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='ja-JP'; u.rate=0.85; u.pitch=1;
+  const voices = window.speechSynthesis.getVoices();
+  const jp = voices.find(v=>v.lang&&v.lang.startsWith('ja'));
+  if(jp) u.voice=jp;
+  window.speechSynthesis.speak(u);
+}
 
-            const word = currentSessionWords[currentCardIndex];
-            const state = userProgress[word.id];
-            const displayCat = word.cat ? word.cat : 'Chung';
+// ===== CẤU TRÚC LOGIC THỐNG KÊ MỚI (TÁCH BIỆT FLASH vs QUIZ) =====
+function getTodayKey(){ return new Date().toISOString().slice(0,10); }
 
-            container.innerHTML = `
-                <div class="flashcard-wrapper" onclick="toggleCardFlip()">
-                    <div id="main-card" class="flashcard">
-                        <div class="card-face card-front">
-                            <span class="card-tag">` + displayCat + `</span>
-                            <div class="word-jp">` + word.jp + `</div>
-                            <div class="word-kana">` + (word.kana || '') + `</div>
-                            ` + (state.wrongCount > 0 ? `<div style="font-size:0.75rem; color:var(--accent); margin-top:8px; font-weight:600;">⚠️ Hay quên: Đã sai ` + state.wrongCount + ` lần</div>` : '') + `
-                            <div class="hint-text">Bấm vào thẻ xem nghĩa Tiếng Việt 🔁</div>
-                        </div>
-                        <div class="card-face card-back">
-                            <span class="card-tag">` + displayCat + `</span>
-                            <div class="word-vn">` + word.vn + `</div>
-                            <div class="word-desc">` + (word.desc || 'Không có mô tả.') + `</div>
-                            <div class="hint-text" style="color: rgba(255,255,255,0.6)">Bấm vào thẻ quay lại chữ Nhật 🔁</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="text-align:center; font-size:0.8rem; color:var(--text-muted); font-weight:500;">
-                    Từ số: ` + (currentCardIndex + 1) + ` / ` + currentSessionWords.length + `
-                </div>
-            `;
-        }
+function loadStats(){ 
+  const defaultStats = {
+    flash: { total: 0, good: 0, bad: 0, days: {} },
+    quiz: { total: 0, correct: 0, wrong: 0, days: {} },
+    wordErrors: {}
+  };
+  const raw = localStorage.getItem('learnStats');
+  if(!raw) return defaultStats;
+  try {
+    const data = JSON.parse(raw);
+    // Tương thích ngược nếu dữ liệu cũ chưa có cấu trúc phân tách độc lập
+    if(!data.flash || !data.quiz) {
+      return defaultStats;
+    }
+    return data;
+  } catch(e) {
+    return defaultStats;
+  }
+}
 
-        function toggleCardFlip() {
-            const card = document.getElementById('main-card');
-            if(card) card.classList.toggle('flipped');
-        }
+function saveStats(s){ localStorage.setItem('learnStats',JSON.stringify(s)); }
 
-        function handleCardAction(isCorrect) {
-            if (currentSessionWords.length === 0) return;
+function recordFlashAction(isGood, wordId) {
+  const s = loadStats();
+  s.flash.total++;
+  if(isGood) s.flash.good++; else s.flash.bad++;
+  
+  const today = getTodayKey();
+  if(!s.flash.days[today]) s.flash.days[today] = { good: 0, bad: 0 };
+  if(isGood) s.flash.days[today].good++; else s.flash.days[today].bad++;
+  
+  // Nếu học viên báo chưa thuộc ở flashcard, cũng ghi nhận vào độ yếu từ vựng chung
+  if(!isGood) {
+    s.wordErrors[wordId] = (s.wordErrors[wordId] || 0) + 1;
+  } else if(s.wordErrors[wordId]) {
+    s.wordErrors[wordId] = Math.max(0, s.wordErrors[wordId] - 0.5);
+  }
+  saveStats(s);
+}
 
-            const word = currentSessionWords[currentCardIndex];
-            
-            if (isCorrect) {
-                userProgress[word.id].status = 'learned';
-            } else {
-                userProgress[word.id].status = 'review';
-                userProgress[word.id].wrongCount += 1;
-            }
+function recordQuizAction(isCorrect, wordId) {
+  const s = loadStats();
+  s.quiz.total++;
+  if(isCorrect) s.quiz.correct++; else s.quiz.wrong++;
+  
+  const today = getTodayKey();
+  if(!s.quiz.days[today]) s.quiz.days[today] = { correct: 0, wrong: 0 };
+  if(isCorrect) s.quiz.days[today].correct++; else s.quiz.wrong++;
+  
+  if(!isCorrect) {
+    s.wordErrors[wordId] = (s.wordErrors[wordId] || 0) + 1;
+  } else if(s.wordErrors[wordId]) {
+    s.wordErrors[wordId] = Math.max(0, s.wordErrors[wordId] - 0.5);
+  }
+  saveStats(s);
+}
 
-            saveProgress();
+function calcStreak(daysObject) {
+  let streak=0; const today=new Date();
+  for(let i=0;i<365;i++){
+    const d=new Date(today); d.setDate(d.getDate()-i);
+    const key=d.toISOString().slice(0,10);
+    const dayData = daysObject[key];
+    if(dayData && ((dayData.good || dayData.bad || dayData.correct || dayData.wrong) > 0)) {
+      streak++;
+    } else if(i>0) break;
+  }
+  return streak;
+}
 
-            currentCardIndex++;
-            if (currentCardIndex >= currentSessionWords.length) {
-                currentCardIndex = 0;
-                initFlashcardSession(); 
-            } else {
-                renderFlashcard();
-            }
-        }
+function getSmartDeck() {
+  const s=loadStats();
+  const err=Object.entries(s.wordErrors).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1])
+    .map(([id])=>WORDS.find(w=>w.id==id)).filter(Boolean);
+  const seenIds=new Set(Object.keys(s.wordErrors).map(Number));
+  const unseen=WORDS.filter(w=>!seenIds.has(w.id)).sort(()=>Math.random()-.5);
+  return [...err,...unseen];
+}
 
-        function renderWordList() {
-            const filterValue = document.getElementById('list-status-filter').value;
-            const target = document.getElementById('word-list-target');
-            target.innerHTML = '';
+function renderStats() {
+  const s = loadStats(); 
+  const L = LANG[currentLang];
+  const last7Days = [];
+  for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); last7Days.push(d.toISOString().slice(0,10)); }
 
-            const filtered = DICT_DATA.filter(word => {
-                if (filterValue === 'all') return true;
-                return userProgress[word.id].status === filterValue;
-            });
+  if(activeStatsTab === 'flash') {
+    // Render Flashcard Stats
+    const totalFlash = s.flash.good + s.flash.bad;
+    const pGood = totalFlash ? Math.round(s.flash.good / totalFlash * 100) : 0;
+    const pBad = totalFlash ? Math.round(s.flash.bad / totalFlash * 100) : 0;
+    
+    document.getElementById('stFlashStreak').textContent = calcStreak(s.flash.days);
+    document.getElementById('stFlashTotal').textContent = s.flash.total;
+    document.getElementById('stFlashGood').textContent = s.flash.good;
+    document.getElementById('stFlashBad').textContent = s.flash.bad;
+    document.getElementById('stFlashPctGood').textContent = pGood + '%';
+    document.getElementById('stFlashPctBad').textContent = pBad + '%';
+    document.getElementById('stFlashBarGood').style.width = pGood + '%';
+    document.getElementById('stFlashBarBad').style.width = pBad + '%';
+    
+    document.getElementById('stFlashHistory').innerHTML = last7Days.map(day => {
+      const data = s.flash.days[day] || { good: 0, bad: 0 };
+      const tot = data.good + data.bad;
+      const lbl = day === getTodayKey() ? L.today : day.slice(5).replace('-','/');
+      return `<div class="day-row"><span class="day-date">${lbl}</span><div class="day-info">${tot===0?`<span style="color:var(--muted);font-size:12px">${L.noData}</span>`:`<span class="g">👍 ${data.good}</span><span class="r">👎 ${data.bad}</span>`}</div></div>`;
+    }).join('');
 
-            if(filtered.length === 0) {
-                target.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📋</div>
-                        <p>Không có dữ liệu hiển thị.</p>
-                    </div>`;
-                return;
-            }
+  } else {
+    // Render Quiz Stats
+    const totalQuiz = s.quiz.correct + s.quiz.wrong;
+    const pCorrect = totalQuiz ? Math.round(s.quiz.correct / totalQuiz * 100) : 0;
+    const pWrong = totalQuiz ? Math.round(s.quiz.wrong / totalQuiz * 100) : 0;
+    
+    document.getElementById('stQuizStreak').textContent = calcStreak(s.quiz.days);
+    document.getElementById('stQuizTotal').textContent = s.quiz.total;
+    document.getElementById('stQuizCorrect').textContent = s.quiz.correct;
+    document.getElementById('stQuizWrong').textContent = s.quiz.wrong;
+    document.getElementById('stQuizPctGood').textContent = pCorrect + '%';
+    document.getElementById('stQuizPctBad').textContent = pWrong + '%';
+    document.getElementById('stQuizBarGood').style.width = pCorrect + '%';
+    document.getElementById('stQuizBarBad').style.width = pWrong + '%';
+    
+    document.getElementById('stQuizHistory').innerHTML = last7Days.map(day => {
+      const data = s.quiz.days[day] || { correct: 0, wrong: 0 };
+      const tot = data.correct + data.wrong;
+      const lbl = day === getTodayKey() ? L.today : day.slice(5).replace('-','/');
+      return `<div class="day-row"><span class="day-date">${lbl}</span><div class="day-info">${tot===0?`<span style="color:var(--muted);font-size:12px">${L.noData}</span>`:`<span class="g">✅ ${data.correct}</span><span class="r">❌ ${data.wrong}</span>`}</div></div>`;
+    }).join('');
+  }
 
-            filtered.forEach(word => {
-                const state = userProgress[word.id];
-                const item = document.createElement('div');
-                item.className = 'word-item status-' + state.status;
+  // Render Danh Sách Từ Vựng Hay Sai Chung
+  const sortedErrors = Object.entries(s.wordErrors).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  document.getElementById('stWeakWords').innerHTML = sortedErrors.length ? sortedErrors.map(([id,cnt])=>{
+    const w = WORDS.find(x=>x.id==id); if(!w) return '';
+    return `<div class="day-row"><div><div style="font-size:13px;font-weight:700;color:var(--navy)">${w.viet}</div><div style="font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--red)">${w.kanji}</div></div><span style="font-size:12px;font-weight:700;color:var(--red)">${Math.ceil(cnt)} ${L.weakTimes}</span></div>`;
+  }).join('') : `<p style="color:var(--muted);font-size:13px;text-align:center;padding:10px 0">${L.noData}</p>`;
+}
 
-                let badgeClass = 'badge-not-learned';
-                let badgeText = 'Mới / Chưa học';
-                if(state.status === 'learned') { badgeClass = 'badge-learned'; badgeText = 'Đã thuộc'; }
-                if(state.status === 'review') { badgeClass = 'badge-review'; badgeText = 'Hay quên (' + state.wrongCount + ')'; }
+// ===== LOGIC VÒNG LẶP FLASHCARD CUỐN CHIẾU =====
+let flashPool=[], currentQueue=[], flashGood=0, flashBad=0, flashMode='vn', flashFlipped=false;
+let currentIndexInQueue = 0; let continuousWrongCount = 0;
 
-                item.innerHTML = `
-                    <div class="word-item-info">
-                        <div class="item-jp-row">
-                            <span class="item-jp">` + word.jp + `</span>
-                            <span class="item-kana">/ ` + (word.kana || '') + `</span>
-                        </div>
-                        <div class="item-vn">` + word.vn + `</div>
-                    </div>
-                    <span class="item-status-badge ` + badgeClass + `">` + badgeText + `</span>
-                `;
-                target.appendChild(item);
-            });
-        }
-    </script>
+function setFlashMode(m){
+  flashMode=m;
+  document.getElementById('btnModeVN').classList.toggle('active',m==='vn');
+  document.getElementById('btnModeJP').classList.toggle('active',m==='jp');
+  initFlash();
+}
+
+function initFlash(){
+  const grp=document.getElementById('flashGroupSel').value;
+  let pool;
+  if(grp==='all') pool=[...WORDS];
+  else if(grp==='fav') pool=WORDS.filter(w=>favorites.includes(w.id));
+  else if(grp==='smart') pool=getSmartDeck();
+  else pool=WORDS.filter(w=>w.group===grp);
+  
+  flashPool=(pool.length?pool:[...WORDS]).sort(()=>Math.random()-.5);
+  flashGood=0; flashBad=0; flashFlipped=false; continuousWrongCount = 0;
+  currentIndexInQueue = 0; currentQueue = [];
+  
+  refillQueue(); updateFlashStats(); renderFlashCard();
+}
+
+function refillQueue() {
+  while (currentQueue.length < 5 && flashPool.length > 0) { currentQueue.push(flashPool.shift()); }
+}
+
+function updateFlashStats(){
+  document.getElementById('fsTotal').textContent = currentQueue.length + flashPool.length;
+  document.getElementById('fsGood').textContent = flashGood;
+  document.getElementById('fsBad').textContent = flashBad;
+  document.getElementById('flashBar').style.width = Math.round(flashGood / (WORDS.length || 1) * 100) + '%';
+}
+
+function renderFlashCard(){
+  const el=document.getElementById('flashContent'); const L=LANG[currentLang];
+  if(currentQueue.length === 0 && flashPool.length === 0){
+    const totalWordsCount = WORDS.length || 1;
+    const pct=Math.round(flashGood / totalWordsCount * 100);
+    el.innerHTML=`<div class="done-wrap"><div class="done-icon">${pct>=80?'🎉':pct>=50?'👍':'📚'}</div><h2>${pct>=80?L.doneXs:pct>=50?L.doneGood:L.doneNeed}</h2><p>${L.doneTxt} <b>${flashGood}/${totalWordsCount}</b> ${L.doneTxt2} (${pct}%)<br>${L.doneChua}: <b>${flashBad}</b> ${L.doneTxt2}</p><button class="restart-btn" onclick="initFlash()">${L.restartBtn}</button></div>`;
+    return;
+  }
+  if(currentIndexInQueue >= currentQueue.length) currentIndexInQueue = 0;
+  
+  const w=currentQueue[currentIndexInQueue];
+  const imgSrc=IMGS[w.id]||'';
+  const imgHtml=imgSrc?`<div class="fc-img-wrap"><img class="fc-img" src="${imgSrc}"></div>`:'';
+  let frontMain,frontSub;
+  if(flashMode==='vn'){frontMain=`<div class="fc-main">${w.viet}</div>`;frontSub=`<div class="fc-sub">${w.group}</div>`;}
+  else{frontMain=`<div class="fc-main" style="font-family:'Noto Sans JP',sans-serif">${w.kanji}</div>`;frontSub=`<div class="fc-sub" style="font-family:'Noto Sans JP',sans-serif">${w.hira}</div>`;}
+  
+  el.innerHTML=`
+    <div class="tap-hint">${L.tapHint} (${currentIndexInQueue+1}/${currentQueue.length})</div>
+    <div class="card-wrap" onclick="flipCard()">
+      <div class="fc${flashFlipped?' flipped':''}">
+        <div class="fc-face fc-front"> <div class="fc-hint">${L.frontHint}</div>${frontMain}${frontSub} </div>
+        <div class="fc-face fc-back">
+          <div class="fc-hint">${L.backHint}</div> ${imgHtml}
+          <div class="fc-back-viet">${w.viet}</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px">
+            <div class="fc-back-jp">${w.kanji}</div>
+            <button class="speak-btn" onclick="event.stopPropagation();speak('${w.hira}')">🔊</button>
+          </div>
+          <div class="fc-back-hira">${w.hira}</div>
+          <div class="fc-back-note">${w.note}</div>
+          <div class="fc-back-group">${w.group}</div>
+        </div>
+      </div>
+    </div>
+    ${flashFlipped?`<div class="flash-actions">
+      <button class="flash-btn wrong" onclick="answerCard(false)"><span class="bi">❌</span><span class="bl">${L.btnWrong}</span></button>
+      <button class="flash-btn good" onclick="answerCard(true)"><span class="bi">✅</span><span class="bl">${L.btnGood}</span></button>
+    </div>`:`<div style="text-align:center;color:var(--muted);font-size:12px;margin-top:8px">${L.flipHint}</div>`}`;
+  updateFlashStats();
+}
+
+function flipCard(){flashFlipped=!flashFlipped;renderFlashCard();}
+
+function answerCard(isGood){
+  if(currentQueue.length === 0) return;
+  
+  // GHI VÀO THỐNG KÊ FLASHCARD ĐỘC LẬP
+  recordFlashAction(isGood, currentQueue[currentIndexInQueue].id);
+  
+  if (isGood) {
+    currentQueue.splice(currentIndexInQueue, 1);
+    flashGood++; continuousWrongCount = 0; refillQueue();
+    if(currentQueue.length === 0) { flashFlipped = false; renderFlashCard(); return; }
+    if (currentIndexInQueue >= currentQueue.length) currentIndexInQueue = 0;
+  } else {
+    flashBad++; continuousWrongCount++;
+    if (continuousWrongCount >= 10) {
+      const L = LANG[currentLang];
+      document.getElementById('modalTitle').textContent = L.alertTitle;
+      document.getElementById('modalMsg').textContent = L.alertMsg;
+      document.getElementById('modalCancel').style.display = 'none';
+      document.getElementById('modalConfirm').textContent = L.alertBtn;
+      _modalCallback = () => {
+        closeModal(); document.getElementById('modalCancel').style.display = 'block';
+        continuousWrongCount = 0; renderFlashCard();
+      };
+      document.getElementById('confirmModal').classList.add('visible');
+      return;
+    }
+    currentIndexInQueue++;
+    if (currentIndexInQueue >= currentQueue.length) currentIndexInQueue = 0;
+  }
+  flashFlipped=false; renderFlashCard();
+}
+
+// ===== LOGIC TRẮC NGHIỆM / KIỂM TRA ĐỘC LẬP =====
+let quizType='mc',quizPool=[],quizIdx=0,quizCorrect=0,quizWrong=0,mcAnswered=false;
+let matchLeftSel=null,matchRightSel=null,matchPairs=[];
+
+function setQuizType(t){
+  quizType=t;
+  document.getElementById('qTypeBtn1').classList.toggle('active',t==='mc');
+  document.getElementById('qTypeBtn2').classList.toggle('active',t==='match');
+  initQuiz();
+}
+
+function initQuiz(){
+  const grp=document.getElementById('quizGroupSel').value;
+  let pool;
+  if(grp==='all') pool=[...WORDS];
+  else if(grp==='fav') pool=WORDS.filter(w=>favorites.includes(w.id));
+  else if(grp==='smart') pool=getSmartDeck();
+  else pool=WORDS.filter(w=>w.group===grp);
+  quizPool=(pool.length?pool:[...WORDS]).sort(()=>Math.random()-.5);
+  quizIdx=0;quizCorrect=0;quizWrong=0;mcAnswered=false;
+  updateQuizStats();renderQuiz();
+}
+
+function updateQuizStats(){
+  document.getElementById('qsTotal').textContent=quizPool.length;
+  document.getElementById('qsCorrect').textContent=quizCorrect;
+  document.getElementById('qsWrong').textContent=quizWrong;
+  document.getElementById('quizBar').style.width=(quizPool.length?Math.round((quizCorrect+quizWrong)/quizPool.length*100):0)+'%';
+}
+
+function renderQuiz(){if(quizType==='mc')renderMC();else renderMatch();}
+
+function renderMC(){
+  const el=document.getElementById('quizContent'); const L=LANG[currentLang];
+  if(!quizPool.length){el.innerHTML=`<div class="empty-wrap"><div style="font-size:48px">📭</div><p>${L.emptyMsg}</p></div>`;return;}
+  if(quizIdx>=quizPool.length){showQuizDone(el);return;}
+  const correct=quizPool[quizIdx];
+  const others=quizPool.filter(w=>w.id!==correct.id).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[correct,...others].sort(()=>Math.random()-.5);
+  const showJP=Math.random()>0.5;
+  const imgSrc=IMGS[correct.id]||'';
+  const imgHtml=imgSrc?`<div class="mc-img-wrap"><img class="mc-img" src="${imgSrc}"></div>`:'';
+  mcAnswered=false;
+  el.innerHTML=`<div class="mc-card">
+    <div class="mc-qnum">${currentLang==='vn'?'Câu':'問題'} ${quizIdx+1} / ${quizPool.length}</div>
+    ${imgHtml} <div class="mc-q${showJP?' jp':''}">${showJP?correct.kanji:correct.viet}</div>
+    ${showJP?`<div class="mc-sub">${correct.hira} <button class="speak-btn" onclick="speak('${correct.hira}')">🔊</button></div>`:''}
+    <div class="mc-opts">
+      ${opts.map(o=>`<button class="mc-opt" data-id="${o.id}" data-correct="${correct.id}" onclick="answerMC(this)">
+        ${showJP?o.viet:o.kanji}${!showJP?`<br><span style="font-size:11px;font-family:'Noto Sans JP',sans-serif;opacity:.7">${o.hira}</span>`:''}
+      </button>`).join('')}
+    </div> <div id="mcFeedback"></div>
+  </div>`;
+}
+
+function answerMC(btn){
+  if(mcAnswered)return;
+  mcAnswered=true;
+  const chosen=btn.dataset.id,correctId=btn.dataset.correct;
+  const isOk=chosen===correctId; const L=LANG[currentLang];
+  
+  // GHI VÀO LOGIC THỐNG KÊ KIỂM TRA ĐỘC LẬP
+  recordQuizAction(isOk, correctId);
+  
+  document.querySelectorAll('.mc-opt').forEach(o=>o.classList.add('disabled'));
+  btn.classList.add(isOk?'correct':'wrong');
+  if(!isOk) document.querySelectorAll('.mc-opt').forEach(o=>{if(o.dataset.id===correctId)o.classList.add('correct');});
+  if(isOk)quizCorrect++;else quizWrong++;
+  updateQuizStats();
+  const fb=document.getElementById('mcFeedback');
+  fb.className='mc-fb '+(isOk?'ok':'fail');
+  fb.innerHTML=isOk?L.mcCorrect:L.mcWrong;
+  fb.insertAdjacentHTML('afterend',`<button class="mc-next" onclick="nextMC()">${L.mcNext}</button>`);
+}
+
+function nextMC(){quizIdx++;mcAnswered=false;renderQuiz();}
+
+const MATCH_SIZE=5;
+function renderMatch(){
+  const el=document.getElementById('quizContent'); const L=LANG[currentLang];
+  if(!quizPool.length||quizIdx>=quizPool.length){showQuizDone(el);return;}
+  const batch=quizPool.slice(quizIdx,quizIdx+MATCH_SIZE);
+  matchPairs=batch.map(w=>({id:w.id,viet:w.viet,kanji:w.kanji,hira:w.hira}));
+  matchLeftSel=null;matchRightSel=null;
+  const lefts=[...matchPairs].sort(()=>Math.random()-.5);
+  const rights=[...matchPairs].sort(()=>Math.random()-.5);
+  el.innerHTML=`<div class="match-wrap">
+    <div class="match-title">${L.matchTitle}</div>
+    <div class="match-cols">
+      <div class="match-col">
+        <div class="match-lbl">${L.matchLbl1}</div>
+        ${lefts.map(w=>`<div class="match-item" id="ml_${w.id}" onclick="selectMatch('left','${w.id}')">${w.viet}</div>`).join('')}
+      </div>
+      <div class="match-col">
+        <div class="match-lbl">${L.matchLbl2}</div>
+        ${rights.map(w=>`<div class="match-item jp" id="mr_${w.id}" onclick="selectMatch('right','${w.id}')">${w.kanji}<br><span style="font-size:11px;opacity:.7">${w.hira}</span></div>`).join('')}
+      </div>
+    </div>
+    <div id="matchFeedback" style="text-align:center;margin-top:10px;font-size:13px;font-weight:600;color:var(--muted)"></div>
+    <button class="match-next" id="matchNextBtn" onclick="renderMatch()" style="display:none">${L.matchNext}</button>
+  </div>`;
+}
+
+function selectMatch(side,id){
+  const el=document.getElementById(side==='left'?`ml_${id}`:`mr_${id}`);
+  if(el.classList.contains('matched-ok'))return;
+  if(side==='left'){
+    if(matchLeftSel)document.getElementById(`ml_${matchLeftSel}`)?.classList.remove('selected');
+    matchLeftSel=id;el.classList.add('selected');
+  }else{
+    if(matchRightSel)document.getElementById(`mr_${matchRightSel}`)?.classList.remove('selected');
+    matchRightSel=id;el.classList.add('selected');
+  }
+  if(matchLeftSel&&matchRightSel){
+    const lEl=document.getElementById(`ml_${matchLeftSel}`);
+    const rEl=document.getElementById(`mr_${matchRightSel}`);
+    const L=LANG[currentLang];
+    if(matchLeftSel===matchRightSel){
+      lEl.classList.remove('selected');lEl.classList.add('matched-ok');lEl.style.pointerEvents='none';
+      rEl.classList.remove('selected');rEl.classList.add('matched-ok');
+      
+      // GHI VÀO THỐNG KÊ KIỂM TRA ĐỘC LẬP
+      recordQuizAction(true, matchLeftSel);
+      
+      quizCorrect++;updateQuizStats();
+      const allDone=matchPairs.every(p=>document.getElementById(`ml_${p.id}`)?.classList.contains('matched-ok'));
+      if(allDone){
+        quizIdx+=MATCH_SIZE;
+        document.getElementById('matchFeedback').innerHTML=L.matchDone;
+        document.getElementById('matchFeedback').style.color='#27AE60';
+        document.getElementById('matchNextBtn').style.display='block';
+      }
+    }else{
+      lEl.classList.remove('selected');lEl.classList.add('matched-fail');
+      rEl.classList.remove('selected');rEl.classList.add('matched-fail');
+      
+      // GHI VÀO THỐNG KÊ KIỂM TRA ĐỘC LẬP (LỖI)
+      recordQuizAction(false, matchLeftSel);
+      
+      quizWrong++;updateQuizStats();
+      setTimeout(()=>{lEl.classList.remove('matched-fail');rEl.classList.remove('matched-fail');},700);
+    }
+    matchLeftSel=null;matchRightSel=null;
+  }
+}
+
+function showQuizDone(el){
+  const pct=Math.round(quizCorrect/((quizCorrect+quizWrong)||1)*100); const L=LANG[currentLang];
+  el.innerHTML=`<div class="done-wrap"><div class="done-icon">${pct>=80?'🏆':pct>=50?'👍':'📚'}</div><h2>${pct>=80?L.quizDoneXs:pct>=50?L.quizDoneGood:L.quizDoneNeed}</h2><p>${L.quizDoneRight}: <b>${quizCorrect}</b> — ${L.quizDoneWrong}: <b>${quizWrong}</b><br>${L.quizDonePct} <b>${pct}%</b></p><button class="restart-btn" onclick="initQuiz()">${L.quizRestart}</button></div>`;
+}
+
+// KHỞI CHẠY ỨNG DỤNG
+let favorites = JSON.parse(localStorage.getItem('favs')||'[]');
+setLang(currentLang);
+setMode('flash');
+</script>
 </body>
 </html>
